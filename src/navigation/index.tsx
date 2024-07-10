@@ -1,12 +1,9 @@
 // Navigation.tsx
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {
-  CustomHeaderButton,
-  CenteredHeaderTitle,
-} from '../component/header/index';
+import GlobalHeader from '../component/header/GlobalHeader';
+
 // import your screen components here
 // import HomeScreen from './HomeScreen';
 // import GeneratedPasswords from './GeneratedPasswords';
@@ -24,80 +21,52 @@ const PasswordGeneratorScreen = () => {
 const Navigation: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="HomeScreen"
-        screenOptions={({navigation}) => ({
-          headerStyle: {
-            backgroundColor: '#B88AE8',
-            height: 70,
-            borderBottomLeftRadius: 10,
-            borderBottomRightRadius: 10,
-          },
-          headerTintColor: 'red',
-          headerTitle: props => <CenteredHeaderTitle title={props.children} />,
-          headerTitleAlign: 'center',
-          headerLeft: () => (
-            <View style={styles.headerButtonContainer}>
-              <CustomHeaderButton navigation={navigation} />
-            </View>
-          ),
-          headerRight: () => (
-            <View style={styles.headerButtonContainer}>
-              <CustomHeaderButton navigation={navigation} />
-            </View>
-          ),
-        })}>
+      <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen
           name="PasswordGeneratorScreen"
           component={PasswordGeneratorScreen}
-          options={{
-            title: 'Password generator', // replace with t('navigation.homeScreen') if using i18n
-          }}
+          options={({navigation}) => ({
+            header: () => <GlobalHeader title="Password generator" navigation={navigation}/>,
+          })}
         />
         {/*<Stack.Screen
-          name="GeneratedPasswords"
+          name="GeneratedPasswords"showBackButton
           component={GeneratedPasswords}
-          options={{
-            title: 'Generated Passwords', // replace with t('navigation.generatedPasswords') if using i18n
-          }}
+          options={({navigation}) => ({
+            header: () => <GlobalHeader title="Generated Passwords" navigation={navigation} />,
+          })}
         />
         <Stack.Screen
           name="PrivacyPolicy"
           component={PrivacyPolicy}
-          options={{
-            title: 'Privacy Policy', // replace with t('privacyPolicy.title') if using i18n
-          }}
+          options={({navigation}) => ({
+            header: () => <GlobalHeader title="Privacy Policy" navigation={navigation} showBackButton />,
+          })}
         />
         <Stack.Screen
           name="AboutTheApp"
           component={AboutTheApp}
-          options={{
-            title: 'About The App', // replace with t('aboutTheApp.title') if using i18n
-          }}
+          options={({navigation}) => ({
+            header: () => <GlobalHeader title="About The App" navigation={navigation} />,
+          })}
         />
         <Stack.Screen
           name="AboutUs"
           component={AboutUs}
-          options={{
-            title: 'About Us', // replace with t('aboutUs.title') if using i18n
-          }}
+          options={({navigation}) => ({
+            header: () => <GlobalHeader title="About Us" navigation={navigation} />,
+          })}
         />
         <Stack.Screen
           name="HashKey"
           component={HashKey}
-          options={{
-            title: 'Hash Key', // replace with t('hashKey.title') if using i18n
-          }}
+          options={({navigation}) => ({
+            header: () => <GlobalHeader title="Hash Key" navigation={navigation} />,
+          })}
         /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  headerButtonContainer: {
-    paddingHorizontal: 15,
-  },
-});
 
 export default Navigation;
