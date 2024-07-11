@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Svg, {Path} from 'react-native-svg';
+import {View, Text, StyleSheet} from 'react-native';
 import {styles} from './styles';
+import MenuIcon from '../../assets/svg/menu';
+import BackIcon from '../../assets/svg/back';
 
 interface GlobalHeaderProps {
   title: string;
@@ -23,22 +24,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   return (
     <View style={styles.headerContainer}>
       <View style={styles.sideContainer}>
-        <TouchableOpacity style={{marginHorizontal: 15}} onPress={toggleMenu}>
-          <Svg width={24} height={24} viewBox="0 0 24 24">
-            <Path fill={'black'} d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
-          </Svg>
-        </TouchableOpacity>
+        <MenuIcon onPress={toggleMenu} />
       </View>
       <View style={styles.headerTitleContainer}>
         <Text style={styles.headerTitle}>{title}</Text>
       </View>
       <View style={styles.sideContainer}>
         {showBackButton && (
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.headerButtonContainer}>
-            <Svg width={24} height={24} viewBox="0 0 24 24">
-              <Path fill={'black'} d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-            </Svg>
-          </TouchableOpacity>
+          <BackIcon onPress={() => navigation.goBack()} />
         )}
       </View>
       {/* Uncomment and implement your SideMenu component */}
