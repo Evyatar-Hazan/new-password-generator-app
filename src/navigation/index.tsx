@@ -1,3 +1,4 @@
+// src/navigation/index.tsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
@@ -15,11 +16,18 @@ interface ScreenOptionsProps {
   navigation: ScreenNavigationProp;
 }
 
-const PasswordGeneratorHome: React.FC = () => {
-  const { t } = useTranslation()
+interface PasswordGeneratorHomeProps {
+  setCurrentLanguage: (language: string) => void;
+}
+
+const PasswordGeneratorHome: React.FC<PasswordGeneratorHomeProps> = ({ setCurrentLanguage }) => {
+  const { t } = useTranslation();
+  
   return (
     <View>
       <Text>{t('screen.homeScreenTitle')}</Text>
+      <Text style={{ fontSize: 50 }} onPress={() => setCurrentLanguage('he')}>he</Text>
+      <Text style={{ fontSize: 50 }} onPress={() => setCurrentLanguage('en')}>en</Text>
     </View>
   );
 };
@@ -32,7 +40,11 @@ const createScreenOptions = (titleKey: string, showBackButton = false) => {
   });
 };
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+  setCurrentLanguage: (language: string) => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
   const { t } = useTranslation();
 
   return (
@@ -40,10 +52,9 @@ const Navigation: React.FC = () => {
       <Stack.Navigator initialRouteName="PasswordGeneratorHome">
         <Stack.Screen
           name="PasswordGeneratorHome"
-          component={PasswordGeneratorHome}
+          component={() => <PasswordGeneratorHome setCurrentLanguage={setCurrentLanguage} />}
           options={createScreenOptions(t('screen.homeScreenTitle'))}
         />
-       
       </Stack.Navigator>
     </NavigationContainer>
   );
