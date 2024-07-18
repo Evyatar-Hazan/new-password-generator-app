@@ -1,17 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+// src/App.tsx
 import React from 'react';
 import Navigation from './navigation';
+import './i18n/i18n';
 
-
-
-function App(): React.JSX.Element {
+const App: React.FC = () => {
   return <Navigation />;
-}
+};
 
 export default App;

@@ -1,69 +1,49 @@
-// Navigation.tsx
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import GlobalHeader from '../component/header/GlobalHeader';
+import { useTranslation } from 'react-i18next';
+import { View, Text } from 'react-native';
 
-// import your screen components here
-// import HomeScreen from './HomeScreen';
-// import GeneratedPasswords from './GeneratedPasswords';
-// import PrivacyPolicy from './PrivacyPolicy';
-// import AboutTheApp from './AboutTheApp';
-// import AboutUs from './AboutUs';
-// import HashKey from './HashKey';
+type RootStackParamList = {
+  PasswordGeneratorHome: undefined;
+};
 
-const Stack = createStackNavigator();
+type ScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
 
-const PasswordGeneratorScreen = () => {
-  return <></>;
+interface ScreenOptionsProps {
+  navigation: ScreenNavigationProp;
+}
+
+const PasswordGeneratorHome: React.FC = () => {
+  const { t } = useTranslation()
+  return (
+    <View>
+      <Text>{t('screen.homeScreenTitle')}</Text>
+    </View>
+  );
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
+
+const createScreenOptions = (titleKey: string, showBackButton = false) => {
+  return ({ navigation }: ScreenOptionsProps) => ({
+    header: () => <GlobalHeader title={titleKey} navigation={navigation} showBackButton={showBackButton} />,
+  });
 };
 
 const Navigation: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeScreen">
+      <Stack.Navigator initialRouteName="PasswordGeneratorHome">
         <Stack.Screen
-          name="PasswordGeneratorScreen"
-          component={PasswordGeneratorScreen}
-          options={({navigation}) => ({
-            header: () => <GlobalHeader title="Password generator" navigation={navigation}/>,
-          })}
+          name="PasswordGeneratorHome"
+          component={PasswordGeneratorHome}
+          options={createScreenOptions(t('screen.homeScreenTitle'))}
         />
-        {/*<Stack.Screen
-          name="GeneratedPasswords"showBackButton
-          component={GeneratedPasswords}
-          options={({navigation}) => ({
-            header: () => <GlobalHeader title="Generated Passwords" navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="PrivacyPolicy"
-          component={PrivacyPolicy}
-          options={({navigation}) => ({
-            header: () => <GlobalHeader title="Privacy Policy" navigation={navigation} showBackButton />,
-          })}
-        />
-        <Stack.Screen
-          name="AboutTheApp"
-          component={AboutTheApp}
-          options={({navigation}) => ({
-            header: () => <GlobalHeader title="About The App" navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="AboutUs"
-          component={AboutUs}
-          options={({navigation}) => ({
-            header: () => <GlobalHeader title="About Us" navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="HashKey"
-          component={HashKey}
-          options={({navigation}) => ({
-            header: () => <GlobalHeader title="Hash Key" navigation={navigation} />,
-          })}
-        /> */}
+       
       </Stack.Navigator>
     </NavigationContainer>
   );
