@@ -1,36 +1,23 @@
-// src/navigation/index.tsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import GlobalHeader from '../component/header/GlobalHeader';
 import { useTranslation } from 'react-i18next';
-import { View, Text } from 'react-native';
+import Home from '../screen/home';
+import LanguageButton from '../component/LanguageButton/LanguageButton';
 
 type RootStackParamList = {
-  PasswordGeneratorHome: undefined;
+  Home: undefined;
+  LanguageButton: undefined;
+
 };
 
-type ScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
+  type ScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
 
 interface ScreenOptionsProps {
   navigation: ScreenNavigationProp;
 }
 
-interface PasswordGeneratorHomeProps {
-  setCurrentLanguage: (language: string) => void;
-}
-
-const PasswordGeneratorHome: React.FC<PasswordGeneratorHomeProps> = ({ setCurrentLanguage }) => {
-  const { t } = useTranslation();
-  
-  return (
-    <View>
-      <Text>{t('screen.homeScreenTitle')}</Text>
-      <Text style={{ fontSize: 50 }} onPress={() => setCurrentLanguage('he')}>he</Text>
-      <Text style={{ fontSize: 50 }} onPress={() => setCurrentLanguage('en')}>en</Text>
-    </View>
-  );
-};
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -49,12 +36,18 @@ const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="PasswordGeneratorHome">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="PasswordGeneratorHome"
-          component={() => <PasswordGeneratorHome setCurrentLanguage={setCurrentLanguage} />}
+          name="Home"
+          component={Home}
           options={createScreenOptions(t('screen.homeScreenTitle'))}
         />
+        {/* Uncomment and implement the LanguageButton screen if needed */}
+        {/* <Stack.Screen
+          name="LanguageButton"
+          component={() => <LanguageButton setCurrentLanguage={setCurrentLanguage} />}
+          options={createScreenOptions(t('screen.languageButtonTitle'), true)}
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
