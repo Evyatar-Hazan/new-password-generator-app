@@ -1,5 +1,13 @@
 {
     "screen": {
       "homeScreenTitle": "Password generator"
+    },
+    "home": {
+      "title": "Password generator",
+      "subTitle": "Enter two keywords to create a strong password. For those two words you will get the same password.",
+      "note": "Note, please remember the keywords cannot be restored in case of forgetting.",
+      "Keyword1Title": "Keyword 1",
+      "Keyword2Title": "Keyword 2",
+      "inputPlaceholder": "Type your keyword"
     }
 }
