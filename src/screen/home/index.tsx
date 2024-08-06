@@ -11,10 +11,14 @@ import {
 } from 'react-native';
 import FrameInput from '../../component/frameInput';
 import FrameFooter from '../../component/frameFooter';
+import BackIcon from '../../assets/svg/back';
+
 
 const Home: React.FC = () => {
   const {t} = useTranslation();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [Keyword1, setKeyword1] = useState('');
+  const [Keyword2, setKeyword2] = useState('');
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -51,13 +55,21 @@ const Home: React.FC = () => {
               label="Keyword 1"
               placeholder="Enter keyword"
               value={'keyword1'}
+              onChangeText={setKeyword1}
             />
-            <FrameInput isInput={false} label="Keyword 2" value={'keyword2'} />
+            <FrameInput
+              isInput={true}
+              label="Keyword 2"
+              placeholder="Enter keyword"
+              value={'keyword2'}
+              onChangeText={setKeyword2}
+            />
+            {/* <FrameInput isInput={false} label="Keyword 2" value={'keyword2'} /> */}
           </View>
         </View>
       </TouchableWithoutFeedback>
 
-      <FrameFooter />
+      <FrameFooter IconComponent={BackIcon} onPress={() => {console.log("onPress")}}/>
     </KeyboardAvoidingView>
   );
 };
