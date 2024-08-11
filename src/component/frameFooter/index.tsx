@@ -1,23 +1,50 @@
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface FrameFooterProps {
-  IconComponent: React.FC;
-  onPress: () => void;
+  defaultRoundButtonIndex?: number;
+  mapRenderButton: Array<{ IconComponent: React.FC; onPress: () => void }>;
 }
 
-const FrameFooter: React.FC<FrameFooterProps> = ({ IconComponent, onPress }) => {
+const FrameFooter: React.FC<FrameFooterProps> = ({
+  mapRenderButton,
+  defaultRoundButtonIndex = 0,
+}) => {
+  const [roundButtonIndex, setRoundButtonIndex] = useState<number>(
+    defaultRoundButtonIndex
+  );
+
+  const handlePress = (onPress: () => void, index: number) => {
+    setRoundButtonIndex(index);
+    onPress();
+  };
+
+  const renderButton = (
+    { IconComponent, onPress }: { IconComponent: React.FC; onPress: () => void },
+    index: number
+  ) => {
+    const isRoundButton = index === roundButtonIndex;
+    return (
+      <TouchableOpacity
+        key={index}
+        style={isRoundButton ? styles.circleButtonContainer : styles.button}
+        onPress={() => handlePress(onPress, index)}
+      >
+        {isRoundButton && <View style={styles.oval} />}
+        <View style={isRoundButton ? styles.circleButton : styles.button}>
+          <IconComponent />
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.footerBackground}>
-        <View style={styles.footerOverlay} />
+        <View style={styles.buttonsContainer}>
+          {mapRenderButton.map((button, index) => renderButton(button, index))}
+        </View>
       </View>
-      <View style={styles.ovalContainer}>
-        <View style={styles.oval} />
-      </View>
-      <TouchableOpacity style={styles.circleButton} onPress={onPress}>
-        <IconComponent />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -28,33 +55,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   footerBackground: {
-    position: 'absolute',
-    bottom: 0,
     width: '100%',
     height: 80,
     backgroundColor: '#B88AE8',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
-  footerOverlay: {
-    flex: 1,
-    backgroundColor: '#B88AE8', // Half transparent
-  },
-  ovalContainer: {
-    position: 'absolute',
-    bottom: 0,
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    width: '100%',
-    height: 80, // Height of the oval
+    height: '100%',
+    paddingHorizontal: 20,
   },
-  oval: {
-    width: 110, // Adjust width for desired oval shape
-    height: 50, // Height of the oval
-    backgroundColor: 'gray', // Dark color with transparency
-    borderBottomLeftRadius: 80,
-    borderBottomRightRadius: 80,
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  circleButtonContainer: {
+    alignItems: 'center',
   },
   circleButton: {
-    position: 'absolute',
-    bottom: 40,
+    top: -75,
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -66,6 +88,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 5,
+    position: 'absolute',
+  },
+  oval: {
+    width: 110,
+    height: 50,
+    backgroundColor: 'gray',
+    borderBottomLeftRadius: 80,
+    borderBottomRightRadius: 80,
+    position: 'absolute',
+    top: -40,
   },
 });
 

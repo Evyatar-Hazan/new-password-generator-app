@@ -13,7 +13,6 @@ import FrameInput from '../../component/frameInput';
 import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
 
-
 const Home: React.FC = () => {
   const {t} = useTranslation();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
@@ -69,7 +68,11 @@ const Home: React.FC = () => {
         </View>
       </TouchableWithoutFeedback>
 
-      <FrameFooter IconComponent={BackIcon} onPress={() => {console.log("onPress")}}/>
+      <FrameFooter
+        mapRenderButton={[
+          {IconComponent: BackIcon, onPress: () => {console.log('on press 0')}},
+        ]}
+      />
     </KeyboardAvoidingView>
   );
 };
