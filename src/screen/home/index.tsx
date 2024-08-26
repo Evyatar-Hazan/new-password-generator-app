@@ -52,14 +52,14 @@ const Home: React.FC = () => {
             <FrameInput
               isInput={true}
               label="Keyword 1"
-              placeholder="Type your keyword"
+              placeholder={t("home.inputPlaceholder")}
               value={Keyword1}
               onChangeText={setKeyword1}
             />
             <FrameInput
               isInput={true}
               label="Keyword 2"
-              placeholder="Type your keyword"
+              placeholder={t("home.inputPlaceholder")}
               value={Keyword2}
               onChangeText={setKeyword2}
             />
@@ -85,16 +85,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     padding: 20,
+    marginTop: '20%'
   },
   textContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
     marginVertical: 20,
   },
   textLarge: {
     fontSize: 24,
-    marginBottom: 10,
+    marginBottom: 30,
     textAlign: 'center',
     fontWeight: 'bold',
   },
