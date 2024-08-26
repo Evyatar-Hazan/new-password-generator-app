@@ -52,15 +52,15 @@ const Home: React.FC = () => {
             <FrameInput
               isInput={true}
               label="Keyword 1"
-              placeholder="Enter keyword"
-              value={'keyword1'}
+              placeholder="Type your keyword"
+              value={Keyword1}
               onChangeText={setKeyword1}
             />
             <FrameInput
               isInput={true}
               label="Keyword 2"
-              placeholder="Enter keyword"
-              value={'keyword2'}
+              placeholder="Type your keyword"
+              value={Keyword2}
               onChangeText={setKeyword2}
             />
             {/* <FrameInput isInput={false} label="Keyword 2" value={'keyword2'} /> */}

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Clipboard, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TextInput, Clipboard, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface FrameInputProps {
   isInput: boolean;
@@ -10,13 +10,9 @@ interface FrameInputProps {
 }
 
 const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, value, onChangeText }) => {
-  const copyToClipboard = () => {
-    Clipboard.setString(value);
-    // You might want to provide feedback to the user, such as a toast or alert.
-  };
 
   return (
-    <View style={styles.frameContainer}>
+    <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       {isInput ? (
         <TextInput
@@ -26,39 +22,35 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
           onChangeText={onChangeText}
         />
       ) : (
-        <View style={styles.textWithCopyContainer}>
-          <Text style={styles.fixedText}>{value}</Text>
-          <TouchableOpacity onPress={copyToClipboard} style={styles.copyButton}>
-            <Text style={styles.copyButtonText}>Copy</Text>
-          </TouchableOpacity>
-        </View>
+        <TextInput
+          style={styles.input}
+          placeholder={placeholder}
+          value={value}
+          editable={false}
+        />
       )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  frameContainer: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    padding: 10,
+  container: {
     marginBottom: 20,
-    borderRadius: 5,
-    width: '80%',
+    width: '90%',
     alignSelf: 'center',
-    backgroundColor: '#f9f9f9', // Add background color for the frame
   },
   label: {
     fontSize: 16,
     marginBottom: 5,
-    textAlign: 'center',
     fontWeight: 'bold',
+    textAlign: 'left',
   },
   input: {
     borderColor: '#ccc',
     borderWidth: 1,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10, // Rounded corners
+    backgroundColor: 'transparent',
   },
   textWithCopyContainer: {
     flexDirection: 'row',
@@ -73,7 +65,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#007BFF', // Change this color as needed
+    backgroundColor: '#007BFF',
     borderRadius: 5,
   },
   copyButtonText: {
