@@ -5,9 +5,11 @@ import GlobalHeader from '../component/header/GlobalHeader';
 import { useTranslation } from 'react-i18next';
 import Home from '../screen/home';
 import LanguageButton from '../component/LanguageButton/LanguageButton';
+import Hub from '../screen/hub';
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Home: undefined;
+  Hub: {Keyword1: string, Keyword2: string};
   LanguageButton: undefined;
 
 };
@@ -27,7 +29,7 @@ const createScreenOptions = (titleKey: string, showBackButton = false) => {
   });
 };
 
-interface NavigationProps {
+export interface NavigationProps {
   setCurrentLanguage: (language: string) => void;
 }
 
@@ -41,6 +43,11 @@ const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
           name="Home"
           component={Home}
           options={createScreenOptions(t('screen.homeScreenTitle'))}
+        />
+        <Stack.Screen
+          name="Hub"
+          component={Hub}
+          options={createScreenOptions(t('screen.hubScreenTitle'))}
         />
         {/* Uncomment and implement the LanguageButton screen if needed */}
         {/* <Stack.Screen

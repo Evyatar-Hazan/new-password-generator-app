@@ -12,8 +12,13 @@ import {
 import FrameInput from '../../component/frameInput';
 import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
+import Navigation, { RootStackParamList } from '../../navigation';
+import Hub from '../hub';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const Home: React.FC = () => {
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+const Home: React.FC<{ navigation: HomeScreenNavigationProp }> = ({ navigation }) => {
   const {t} = useTranslation();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const [Keyword1, setKeyword1] = useState('');
@@ -34,6 +39,10 @@ const Home: React.FC = () => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
+  const onPressGenerator = () => {
+    navigation.navigate('Hub', {Keyword1, Keyword2});
+  };
 
   return (
     <KeyboardAvoidingView
@@ -70,7 +79,7 @@ const Home: React.FC = () => {
 
       <FrameFooter
         mapRenderButton={[
-          {IconComponent: BackIcon, onPress: () => {console.log('on press 0')}},
+          {IconComponent: BackIcon, onPress: () => onPressGenerator()},
         ]}
       />
     </KeyboardAvoidingView>

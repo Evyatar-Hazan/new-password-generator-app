@@ -7,9 +7,45 @@ interface FrameInputProps {
   placeholder?: string;
   value: string;
   onChangeText?: (text: string) => void;
+  strengthType?: 'veryWeak' | 'weak' | 'medium' | 'strong' | 'veryStrong';
 }
 
-const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, value, onChangeText }) => {
+const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, value, onChangeText, strengthType }) => {
+  const handleCopy = () => {
+    Clipboard.setString(value);
+  };
+
+  const getProgressStyle = () => {
+    let width = '0%';
+    let color = 'transparent';
+
+    switch (strengthType) {
+      case 'veryWeak':
+        width = '20%';
+        color = 'red';
+        break;
+      case 'weak':
+        width = '40%';
+        color = 'red';
+        break;
+      case 'medium':
+        width = '60%';
+        color = 'orange';
+        break;
+      case 'strong':
+        width = '80%';
+        color = 'orange';
+        break;
+      case 'veryStrong':
+        width = '100%';
+        color = 'green';
+        break;
+    }
+
+    return { width, backgroundColor: color };
+  };
+
+  const progressBarStyle = getProgressStyle();
 
   return (
     <View style={styles.container}>
@@ -22,12 +58,17 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
           onChangeText={onChangeText}
         />
       ) : (
-        <TextInput
-          style={styles.input}
-          placeholder={placeholder}
-          value={value}
-          editable={false}
-        />
+        <>
+          <View style={styles.textWithCopyContainer}>
+            <Text style={styles.fixedText}>{value}</Text>
+            <TouchableOpacity style={styles.copyButton} onPress={handleCopy}>
+              <Text style={styles.copyButtonText}>Copy</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.progressBarContainer}>
+            <View style={[styles.progressBar, progressBarStyle]} />
+          </View>
+        </>
       )}
     </View>
   );
@@ -49,13 +90,17 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     padding: 10,
-    borderRadius: 10, // Rounded corners
+    borderRadius: 10,
     backgroundColor: 'transparent',
   },
   textWithCopyContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
   },
   fixedText: {
     fontSize: 16,
@@ -71,6 +116,17 @@ const styles = StyleSheet.create({
   copyButtonText: {
     color: '#fff',
     fontSize: 14,
+  },
+  progressBarContainer: {
+    height: 6,
+    width: '100%',
+    backgroundColor: '#e0e0e0',
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  progressBar: {
+    height: '100%',
+    borderRadius: 5,
   },
 });
 

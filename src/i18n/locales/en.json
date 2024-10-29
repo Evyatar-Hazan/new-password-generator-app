@@ -1,6 +1,7 @@
 {
   "screen": {
-    "homeScreenTitle": "Password generator"
+    "homeScreenTitle": "Password generator",
+    "hubScreenTitle": "Password generator"
   },
   "home": {
     "title": "Password generator",
@@ -9,6 +10,13 @@
     "Keyword1Title": "Keyword 1",
     "Keyword2Title": "Keyword 2",
     "inputPlaceholder": "Type your keyword"
+  },
+  "hub": {
+    "veryWeakTitle": "Numbers only",
+    "weakTitle": "Letters only",
+    "mediumTitle": "Numbers and letters",
+    "strongTitle": "Includes capital letters",
+    "veryStrongTitle": "Includes a symbol"
   },
   "SplashScreen": {
     "title": "Password generator"

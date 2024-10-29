@@ -1,6 +1,7 @@
 {
   "screen": {
-    "homeScreenTitle": "מחולל סיסמאות"
+    "homeScreenTitle": "מחולל סיסמאות",
+    "hubScreenTitle": "מחולל סיסמאות"
   },
   "home": {
     "title": "מחולל סיסמאות",
@@ -9,6 +10,13 @@
     "Keyword1Title": "מילת מפתח 1",
     "Keyword2Title": "מילת מפתח 2",
     "inputPlaceholder": "הקלד את מילת המפתח שלך"
+  },
+  "hub": {
+    "veryWeakTitle": "מספרים בלבד",
+    "weakTitle": "אותיות בלבד",
+    "mediumTitle": "מספרים ואותיות",
+    "strongTitle": "כולל אותיות גדולות",
+    "veryStrongTitle": "כולל סימן"
   },
   "SplashScreen": {
     "title": "מחולל סיסמאות"
