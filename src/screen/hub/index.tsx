@@ -16,6 +16,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation';
 import { RouteProp } from '@react-navigation/native';
 import { extractLetters, combineNumbersAndLetters, transformToUpperCase, transformToSign, extractNumbers } from 'password-generator-npm';
+import FourIcon from '../../assets/svg/footer/fourIcon';
 
 type HubScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Hub'>;
 type HubScreenRouteProp = RouteProp<RootStackParamList, 'Hub'>;
@@ -94,11 +95,10 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-
       <FrameFooter
         mapRenderButton={[
           {
-            IconComponent: BackIcon,
+            IconComponent: FourIcon,
             onPress: () => setNumCharacters(4),
           },
           {

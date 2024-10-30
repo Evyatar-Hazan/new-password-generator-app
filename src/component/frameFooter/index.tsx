@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 
 interface FrameFooterProps {
   defaultRoundButtonIndex?: number;
@@ -10,12 +10,32 @@ const FrameFooter: React.FC<FrameFooterProps> = ({
   mapRenderButton,
   defaultRoundButtonIndex = 0,
 }) => {
-  const [roundButtonIndex, setRoundButtonIndex] = useState<number>(
-    defaultRoundButtonIndex
-  );
+  const [roundButtonIndex, setRoundButtonIndex] = useState<number>(defaultRoundButtonIndex);
+  const scaleAnimation = new Animated.Value(1);
+  const opacityAnimation = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(opacityAnimation, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const handlePress = (onPress: () => void, index: number) => {
     setRoundButtonIndex(index);
+    Animated.sequence([
+      Animated.timing(scaleAnimation, {
+        toValue: 1.1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnimation, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
     onPress();
   };
 
@@ -31,23 +51,29 @@ const FrameFooter: React.FC<FrameFooterProps> = ({
         onPress={() => handlePress(onPress, index)}
       >
         {isRoundButton && <View style={styles.oval} />}
-        <View style={isRoundButton ? styles.circleButton : styles.button}>
+        <Animated.View
+          style={[
+            isRoundButton ? styles.circleButton : styles.button,
+            isRoundButton && { transform: [{ scale: scaleAnimation }] },
+          ]}
+        >
           <IconComponent />
-        </View>
+        </Animated.View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <View style={styles.container}>
+      <Animated.View style={[styles.container, { opacity: opacityAnimation }]}>
       <View style={styles.footerBackground}>
         <View style={styles.buttonsContainer}>
           {mapRenderButton.map((button, index) => renderButton(button, index))}
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -86,8 +112,8 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 5,
+    shadowRadius: 8, // הגברת הצל לאפקט עגול
+    elevation: 8,
     position: 'absolute',
   },
   oval: {
@@ -98,7 +124,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 80,
     position: 'absolute',
     top: -40,
+    opacity: 0.7, // הגברת השקיפות לאפקט עדין יותר
   },
 });
+
 
 export default FrameFooter;
