@@ -17,6 +17,9 @@ import {RootStackParamList} from '../../navigation';
 import { RouteProp } from '@react-navigation/native';
 import { extractLetters, combineNumbersAndLetters, transformToUpperCase, transformToSign, extractNumbers } from 'password-generator-npm';
 import FourIcon from '../../assets/svg/footer/fourIcon';
+import EightIcon from '../../assets/svg/footer/eightIcon';
+import TwelveIcon from '../../assets/svg/footer/twelveIcon';
+import PasswordLengthIcon from '../../assets/svg/footer/passwordLengthIcon';
 
 type HubScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Hub'>;
 type HubScreenRouteProp = RouteProp<RootStackParamList, 'Hub'>;
@@ -102,15 +105,15 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
             onPress: () => setNumCharacters(4),
           },
           {
-            IconComponent: BackIcon,
+            IconComponent: EightIcon,
             onPress: () => setNumCharacters(8),
           },
           {
-            IconComponent: BackIcon,
+            IconComponent: TwelveIcon,
             onPress: () => setNumCharacters(12),
           },
           {
-            IconComponent: BackIcon,
+            IconComponent: PasswordLengthIcon,
             onPress: () => setNumCharacters,
           },
         ]}

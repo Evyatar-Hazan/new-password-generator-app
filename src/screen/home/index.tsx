@@ -72,7 +72,6 @@ const Home: React.FC<{ navigation: HomeScreenNavigationProp }> = ({ navigation }
               value={Keyword2}
               onChangeText={setKeyword2}
             />
-            {/* <FrameInput isInput={false} label="Keyword 2" value={'keyword2'} /> */}
           </View>
         </View>
       </TouchableWithoutFeedback>
