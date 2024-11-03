@@ -1,10 +1,10 @@
-// src/component/header/GlobalHeader.tsx
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {styles} from './styles';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import { styles } from './styles';
 import MenuIcon from '../../assets/svg/menu';
 import BackIcon from '../../assets/svg/back';
-import {useRTL} from '../../i18n/RTLContext';
+import { useRTL } from '../../i18n/RTLContext';
+import SidebarMenu from '../sidebarMenu';
 
 interface GlobalHeaderProps {
   title: string;
@@ -18,10 +18,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   navigation,
 }) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
-  const {isRTL} = useRTL();
+  const { isRTL } = useRTL();
 
   const toggleMenu = () => {
     setMenuVisible(!isMenuVisible);
+  };
+
+  const handleMenuItemPress = (item: string) => {
+    setMenuVisible(false);
   };
 
   return (
@@ -43,13 +47,11 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           showBackButton && <BackIcon onPress={() => navigation.goBack()} />
         )}
       </View>
-      {/* Uncomment and implement your SideMenu component */}
-      {/* <SideMenu
+      <SidebarMenu
         isVisible={isMenuVisible}
         onClose={toggleMenu}
-        onMenuItemPress={toggleMenu}
-        navigation={navigation}
-      /> */}
+        onMenuItemPress={handleMenuItemPress}
+      />
     </View>
   );
 };
