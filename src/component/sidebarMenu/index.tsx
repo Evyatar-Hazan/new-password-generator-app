@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Switch, StyleSheet, Modal, Animated, Dimensions, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import titleIcon from '../../assets/images/appIcon/appIcon.jpeg';
+import PrivacyPolicyIcon from '../../assets/svg/menuButton/privacyPolicyIcon';
+import AboutTheAppIcon from '../../assets/svg/menuButton/aboutTheAppIcon';
+import AboutUsIcon from '../../assets/svg/menuButton/aboutUsIcon';
+import ShareAppIcon from '../../assets/svg/menuButton/shareAppIcon';
+import SecurityKeyIcon from '../../assets/svg/menuButton/securityKeyIcon';
+import SettingsIcon from '../../assets/svg/menuButton/settingsIcon';
+import DownIcon from '../../assets/svg/menuButton/downIcon';
+
 
 interface SidebarMenuProps {
   isVisible: boolean;
@@ -11,12 +18,13 @@ interface SidebarMenuProps {
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuItemPress }) => {
   const screenWidth = Dimensions.get('window').width;
-  const slideAnim = React.useRef(new Animated.Value(-screenWidth * 0.75)).current;
+  const slideAnim = useRef(new Animated.Value(-screenWidth * 0.75)).current;
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLanguageEnglish, setIsLanguageEnglish] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const rotation = useRef(new Animated.Value(0)).current;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isVisible) {
       Animated.timing(slideAnim, {
         toValue: 0,
@@ -34,7 +42,18 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
 
   const toggleSettings = () => {
     setIsSettingsOpen(!isSettingsOpen);
+    
+    Animated.timing(rotation, {
+      toValue: isSettingsOpen ? 0 : 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   };
+
+  const rotationInterpolate = rotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
 
   return (
     <Modal
@@ -55,35 +74,35 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
         {/* Menu Items */}
         <TouchableOpacity onPress={() => onMenuItemPress('Privacy Policy')}>
           <View style={styles.menuItem}>
-            <Icon name="privacy-tip" size={24} color="#000" />
+            <PrivacyPolicyIcon />
             <Text style={styles.menuText}>Privacy Policy</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => onMenuItemPress('About the App')}>
           <View style={styles.menuItem}>
-            <Icon name="info" size={24} color="#000" />
+            <AboutTheAppIcon />
             <Text style={styles.menuText}>About the App</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => onMenuItemPress('About Us')}>
           <View style={styles.menuItem}>
-            <Icon name="group" size={24} color="#000" />
+            <AboutUsIcon />
             <Text style={styles.menuText}>About Us</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => onMenuItemPress('Share App')}>
           <View style={styles.menuItem}>
-            <Icon name="share" size={24} color="#000" />
+            <ShareAppIcon />
             <Text style={styles.menuText}>Share App</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => onMenuItemPress('Security Key')}>
           <View style={styles.menuItem}>
-            <Icon name="vpn-key" size={24} color="#000" />
+            <SecurityKeyIcon />
             <Text style={styles.menuText}>Security Key</Text>
           </View>
         </TouchableOpacity>
@@ -91,9 +110,11 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
         {/* Settings */}
         <TouchableOpacity onPress={toggleSettings}>
           <View style={styles.menuItem}>
-            <Icon name="settings" size={24} color="#000" />
+            <SettingsIcon />
             <Text style={styles.menuText}>Settings</Text>
-            <Icon name={isSettingsOpen ? 'expand-less' : 'expand-more'} size={24} color="#000" />
+            <Animated.View style={{ transform: [{ rotate: rotationInterpolate }] }}>
+              <DownIcon />
+            </Animated.View>
           </View>
         </TouchableOpacity>
 
@@ -119,11 +140,6 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
             </View>
           </View>
         )}
-
-        {/* Close Button */}
-        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>Close Menu</Text>
-        </TouchableOpacity>
       </Animated.View>
     </Modal>
   );
@@ -171,12 +187,11 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingVertical: 10,
   },
   menuText: {
     fontSize: 16,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   settingsContainer: {
     paddingLeft: 10,
