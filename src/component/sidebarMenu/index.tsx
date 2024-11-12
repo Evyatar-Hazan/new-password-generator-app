@@ -1,5 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Switch, StyleSheet, Modal, Animated, Dimensions, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Switch,
+  StyleSheet,
+  Modal,
+  Animated,
+  Dimensions,
+  Image,
+} from 'react-native';
 import titleIcon from '../../assets/images/appIcon/appIcon.jpeg';
 import PrivacyPolicyIcon from '../../assets/svg/menuButton/privacyPolicyIcon';
 import AboutTheAppIcon from '../../assets/svg/menuButton/aboutTheAppIcon';
@@ -8,7 +18,8 @@ import ShareAppIcon from '../../assets/svg/menuButton/shareAppIcon';
 import SecurityKeyIcon from '../../assets/svg/menuButton/securityKeyIcon';
 import SettingsIcon from '../../assets/svg/menuButton/settingsIcon';
 import DownIcon from '../../assets/svg/menuButton/downIcon';
-
+import DarkModeIcon from '../../assets/svg/menuButton/darkModeIcon';
+import LanguageIcon from '../../assets/svg/menuButton/languageIcon';
 
 interface SidebarMenuProps {
   isVisible: boolean;
@@ -16,7 +27,11 @@ interface SidebarMenuProps {
   onMenuItemPress: (item: string) => void;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuItemPress }) => {
+const SidebarMenu: React.FC<SidebarMenuProps> = ({
+  isVisible,
+  onClose,
+  onMenuItemPress,
+}) => {
   const screenWidth = Dimensions.get('window').width;
   const slideAnim = useRef(new Animated.Value(-screenWidth * 0.75)).current;
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -42,7 +57,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
 
   const toggleSettings = () => {
     setIsSettingsOpen(!isSettingsOpen);
-    
+
     Animated.timing(rotation, {
       toValue: isSettingsOpen ? 0 : 1,
       duration: 300,
@@ -60,11 +75,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
       visible={isVisible}
       animationType="none"
       transparent={true}
-      onRequestClose={onClose}
-    >
+      onRequestClose={onClose}>
       <TouchableOpacity style={styles.overlay} onPress={onClose} />
-      <Animated.View style={[styles.container, { transform: [{ translateX: slideAnim }] }]}>
-        
+      <Animated.View
+        style={[styles.container, { transform: [{ translateX: slideAnim }] }]}>
         {/* Title and Icon */}
         <View style={styles.titleContainer}>
           <Image source={titleIcon} style={styles.titleIcon} />
@@ -107,11 +121,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
           </View>
         </TouchableOpacity>
 
-        {/* Settings */}
         <TouchableOpacity onPress={toggleSettings}>
           <View style={styles.menuItem}>
-            <SettingsIcon />
-            <Text style={styles.menuText}>Settings</Text>
+            <View style={styles.menuContent}>
+              <SettingsIcon />
+              <Text style={styles.menuText}>Settings</Text>
+            </View>
             <Animated.View style={{ transform: [{ rotate: rotationInterpolate }] }}>
               <DownIcon />
             </Animated.View>
@@ -123,19 +138,21 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose, onMenuIte
           <View style={styles.settingsContainer}>
             {/* Dark Mode */}
             <View style={styles.settingItem}>
+              <DarkModeIcon />
               <Text style={styles.settingText}>Dark Mode</Text>
               <Switch
                 value={isDarkMode}
-                onValueChange={(value) => setIsDarkMode(value)}
+                onValueChange={value => setIsDarkMode(value)}
               />
             </View>
 
             {/* Language */}
             <View style={styles.settingItem}>
+              <LanguageIcon />
               <Text style={styles.settingText}>Language</Text>
               <Switch
                 value={isLanguageEnglish}
-                onValueChange={(value) => setIsLanguageEnglish(value)}
+                onValueChange={value => setIsLanguageEnglish(value)}
               />
             </View>
           </View>
@@ -177,12 +194,17 @@ const styles = StyleSheet.create({
   titleIcon: {
     width: 40,
     height: 40,
-    borderRadius: 20, // Circular icon
+    borderRadius: 20,
     marginRight: 10,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  menuContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
   },
   menuItem: {
     flexDirection: 'row',
@@ -207,17 +229,11 @@ const styles = StyleSheet.create({
   },
   settingText: {
     fontSize: 16,
+    flex: 1,
+    marginLeft: 10,
   },
-  closeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  closeButtonText: {
-    color: '#FFF',
-    fontSize: 16,
+  settingIcon: {
+    marginRight: 10,
   },
 });
 
