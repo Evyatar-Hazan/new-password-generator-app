@@ -20,5 +20,17 @@
   },
   "SplashScreen": {
     "title": "Password generator"
+  },
+  "menu": {
+    "title": "Password Generator",
+    "privacyPolicy": "Privacy Policy",
+    "aboutApp": "About the App",
+    "aboutUs": "About Us",
+    "shareApp": "Share App",
+    "securityKey": "Security Key",
+    "settings": "Settings",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "privacyNotice": "By using this app, you agree to our Privacy Policy"
   }
 }

@@ -20,5 +20,17 @@
   },
   "SplashScreen": {
     "title": "מחולל סיסמאות"
+  },
+  "menu": {
+    "title": "מחולל סיסמאות",
+    "privacyPolicy": "מדיניות פרטיות",
+    "aboutApp": "על האפליקציה",
+    "aboutUs": "עלינו",
+    "shareApp": "שתף את האפליקציה",
+    "securityKey": "מפתח אבטחה",
+    "settings": "הגדרות",
+    "darkMode": "מצב כהה",
+    "language": "שפה",
+    "privacyNotice": "באמצעות שימוש באפליקציה זו, אתה מסכים למדיניות הפרטיות שלנו"
   }
 }
