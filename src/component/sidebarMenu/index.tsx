@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
-import titleIcon from '../../assets/images/appIcon/appIcon.jpeg';
+import titleIcon from '../../assets/images/appIcon/appIcon.jpeg'
 import {
   AboutTheAppIcon,
   AboutUsIcon,
@@ -24,17 +24,24 @@ import {
   SettingsIcon,
   ShareAppIcon,
 } from '../../assets/svg/menuButton';
+import { RootStackParamList } from '../../navigation';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+
+type SidebarMenuNavigationProp = StackNavigationProp<RootStackParamList, 'privacyPolicy'>;
 
 interface SidebarMenuProps {
   isVisible: boolean;
   onClose: () => void;
   onMenuItemPress: (item: string) => void;
+  navigation: SidebarMenuNavigationProp;
 }
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({
   isVisible,
   onClose,
   onMenuItemPress,
+  navigation
 }) => {
   const {t} = useTranslation();
   const screenWidth = Dimensions.get('window').width;
@@ -43,6 +50,11 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   const [isLanguageEnglish, setIsLanguageEnglish] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const rotation = useRef(new Animated.Value(0)).current;
+
+
+  const onPressNavigation = (screenName: any) => {
+    navigation.navigate(screenName); 
+  };
 
   useEffect(() => {
     if (isVisible) {
@@ -92,7 +104,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
         {/* Menu Items */}
         <View style={styles.menuItemsContainer}>
-          <TouchableOpacity onPress={() => onMenuItemPress('Privacy Policy')}>
+          <TouchableOpacity onPress={() => onPressNavigation('privacyPolicy')}>
             <View style={styles.menuItem}>
               <PrivacyPolicyIcon />
               <Text style={styles.menuText}>{t('menu.privacyPolicy')}</Text>

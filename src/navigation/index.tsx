@@ -6,11 +6,13 @@ import { useTranslation } from 'react-i18next';
 import Home from '../screen/home';
 import LanguageButton from '../component/LanguageButton/LanguageButton';
 import Hub from '../screen/hub';
+import PrivacyPolicy from '../screen/privacyPolicy';
 
 export type RootStackParamList = {
   Home: undefined;
   Hub: {Keyword1: string, Keyword2: string};
   LanguageButton: undefined;
+  privacyPolicy: undefined;
 
 };
 
@@ -47,6 +49,11 @@ const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
         <Stack.Screen
           name="Hub"
           component={Hub}
+          options={createScreenOptions(t('screen.hubScreenTitle'))}
+        />
+        <Stack.Screen
+          name="privacyPolicy"
+          component={PrivacyPolicy}
           options={createScreenOptions(t('screen.hubScreenTitle'))}
         />
         {/* Uncomment and implement the LanguageButton screen if needed */}

@@ -51,6 +51,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
         isVisible={isMenuVisible}
         onClose={toggleMenu}
         onMenuItemPress={handleMenuItemPress}
+        navigation={navigation}
       />
     </View>
   );
