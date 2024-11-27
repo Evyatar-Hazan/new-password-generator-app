@@ -1,91 +1,95 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-} from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Linking, StyleSheet, View } from 'react-native';
 import { RootStackParamList } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
 import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
+import TextBox from '../../component/text';
 
 type PrivacyPolicyScreenNavigationProp = StackNavigationProp<RootStackParamList, 'privacyPolicy'>;
 
 const PrivacyPolicy: React.FC<{ navigation: PrivacyPolicyScreenNavigationProp }> = ({ navigation }) => {
-  const {t} = useTranslation();
-  const content = [
-    "Section 1: Privacy Policy Details",
-    "Section 2: No data collection.",
-    "Section 3: No account creation required.",
-    "Section 4: No internet connection required.",
-    "Section 5: Advertising policies.",
-    "Section 6: Security measures.",
-    "Section 7: Children's privacy.",
-    "Section 8: Changes to the privacy policy.",
-    "Section 9: Contact us for details.",
-    "Section 1: Privacy Policy Details",
-    "Section 2: No data collection.",
-    "Section 3: No account creation required.",
-    "Section 4: No internet connection required.",
-    "Section 5: Advertising policies.",
-    "Section 6: Security measures.",
-    "Section 7: Children's privacy.",
-    "Section 8: Changes to the privacy policy.",
-    "Section 9: Contact us for details.",
-    "Section 1: Privacy Policy Details",
-    "Section 2: No data collection.",
-    "Section 3: No account creation required.",
-    "Section 4: No internet connection required.",
-    "Section 5: Advertising policies.",
-    "Section 6: Security measures.",
-    "Section 7: Children's privacy.",
-    "Section 8: Changes to the privacy policy.",
-    "Section 9: Contact us for details.",
-    "Section 1: Privacy Policy Details",
-    "Section 2: No data collection.",
-    "Section 3: No account creation required.",
-    "Section 4: No internet connection required.",
-    "Section 5: Advertising policies.",
-    "Section 6: Security measures.",
-    "Section 7: Children's privacy.",
-    "Section 8: Changes to the privacy policy.",
-    "Section 9: Contact us for details.",
-    "Section 1: Privacy Policy Details",
-    "Section 2: No data collection.",
-    "Section 3: No account creation required.",
-    "Section 4: No internet connection required.",
-    "Section 5: Advertising policies.",
-    "Section 6: Security measures.",
-    "Section 7: Children's privacy.",
-    "Section 8: Changes to the privacy policy.",
-    "Section 9: Contact us for details.",
-    "Section 1: Privacy Policy Details",
-    "Section 2: No data collection.",
-    "Section 3: No account creation required.",
-    "Section 4: No internet connection required.",
-    "Section 5: Advertising policies.",
-    "Section 6: Security measures.",
-    "Section 7: Children's privacy.",
-    "Section 8: Changes to the privacy policy.",
-    "Section 9: Contact us for details.",
-  ];
+  const { t } = useTranslation();
+
+  const openSourceDocument = () => {
+    Linking.openURL(
+      'https://docs.google.com/document/d/14S4NDZgweh8Iin8ILHM1xWVVNOqVZ0XlfDtiVYTinSQ/edit?usp=sharing',
+    );
+  };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <ScrollBar>
-        <Text style={{ fontSize: 18 }}>{content.join('\n')}</Text>
-        <Button title="Click Me" onPress={() => console.log('Button Pressed')} />
-        <View style={{ height: 100, backgroundColor: 'lightblue' }} />
+
+      <TextBox subText={t('privacyPolicy.lastUpdate.description') + t('privacyPolicy.lastUpdate.details')}/>
+
+      <TextBox subText={t('privacyPolicy.owner')}/>
+
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.dataCollection.description')} 
+          subText={t('privacyPolicy.dataCollection.details')}
+        />
+
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.accountCreation.description')} 
+          subText={t('privacyPolicy.accountCreation.details')}
+        />
+        
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.internetConnection.description')} 
+          subText={t('privacyPolicy.internetConnection.details')} 
+        />
+
+         <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.advertising.description')} 
+          subText={t('privacyPolicy.advertising.details')}
+        />
+
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.security.description')} 
+          subText={t('privacyPolicy.security.details')} 
+        />
+
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.childrenPrivacy.description')} 
+          subText={t('privacyPolicy.childrenPrivacy.details')}
+        />
+
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.changes.description')} 
+          subText={t('privacyPolicy.changes.details')}
+        />
+
+        <TextBox 
+          gapReduction={5}
+          title={t('privacyPolicy.contact.description')} 
+          subText={t('privacyPolicy.contact.details')}
+          linkText={t('privacyPolicy.contact.email')}
+          onPress={() => Linking.openURL(`mailto:${t('privacyPolicy.contact.email')}`)}
+        />
+
+        <TextBox 
+          gapReduction={5}
+          subText={t('privacyPolicy.sourceDocument.description')}
+          linkText={t('privacyPolicy.sourceDocument.link')}
+          onPress={openSourceDocument}
+        />
       </ScrollBar>
       <FrameFooter
         mapRenderButton={[
-          {IconComponent: BackIcon, onPress: () => console.log('onPress')},
+          { IconComponent: BackIcon, onPress: () => navigation.goBack() },
         ]}
-      />
-  </View>
+        />
+    </View>
   );
 };
 
@@ -93,30 +97,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  innerContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: 20,
-    marginTop: '20%'
-  },
-  textContainer: {
-    marginVertical: 20,
-  },
-  textLarge: {
-    fontSize: 24,
-    marginBottom: 30,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  textMedium: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  inputContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-  },
 });
 
-export default PrivacyPolicy;
+export default PrivacyPolicy; 
