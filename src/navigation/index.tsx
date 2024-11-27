@@ -7,12 +7,14 @@ import Home from '../screen/home';
 import LanguageButton from '../component/LanguageButton/LanguageButton';
 import Hub from '../screen/hub';
 import PrivacyPolicy from '../screen/privacyPolicy';
+import AboutApp from '../screen/aboutApp';
 
 export type RootStackParamList = {
   Home: undefined;
   Hub: {Keyword1: string, Keyword2: string};
   LanguageButton: undefined;
-  privacyPolicy: undefined;
+  PrivacyPolicy: undefined;
+  AboutApp: undefined;
 
 };
 
@@ -52,9 +54,14 @@ const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
           options={createScreenOptions(t('general.appName'), true)}
         />
         <Stack.Screen
-          name="privacyPolicy"
+          name="PrivacyPolicy"
           component={PrivacyPolicy}
           options={createScreenOptions(t('general.privacyPolicy'), true)}
+        />
+        <Stack.Screen
+          name="AboutApp"
+          component={AboutApp}
+          options={createScreenOptions(t('general.aboutApp'), true)}
         />
         {/* Uncomment and implement the LanguageButton screen if needed */}
         {/* <Stack.Screen

@@ -8,7 +8,7 @@ import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
 import TextBox from '../../component/text';
 
-type PrivacyPolicyScreenNavigationProp = StackNavigationProp<RootStackParamList, 'privacyPolicy'>;
+type PrivacyPolicyScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PrivacyPolicy'>;
 
 const PrivacyPolicy: React.FC<{ navigation: PrivacyPolicyScreenNavigationProp }> = ({ navigation }) => {
   const { t } = useTranslation();

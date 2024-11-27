@@ -28,7 +28,7 @@ import { RootStackParamList } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
-type SidebarMenuNavigationProp = StackNavigationProp<RootStackParamList, 'privacyPolicy'>;
+type SidebarMenuNavigationProp = StackNavigationProp<RootStackParamList, 'PrivacyPolicy'>;
 
 interface SidebarMenuProps {
   isVisible: boolean;
@@ -54,6 +54,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
   const onPressNavigation = (screenName: any) => {
     navigation.navigate(screenName); 
+    onMenuItemPress("")
   };
 
   useEffect(() => {
@@ -104,17 +105,17 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
         {/* Menu Items */}
         <View style={styles.menuItemsContainer}>
-          <TouchableOpacity onPress={() => onPressNavigation('privacyPolicy')}>
+          <TouchableOpacity onPress={() => onPressNavigation('PrivacyPolicy')}>
             <View style={styles.menuItem}>
               <PrivacyPolicyIcon />
               <Text style={styles.menuText}>{t('general.privacyPolicy')}</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => onMenuItemPress('About the App')}>
+          <TouchableOpacity onPress={() => onPressNavigation('AboutApp')}>
             <View style={styles.menuItem}>
               <AboutTheAppIcon />
-              <Text style={styles.menuText}>{t('menu.aboutApp')}</Text>
+              <Text style={styles.menuText}>{t('general.aboutApp')}</Text>
             </View>
           </TouchableOpacity>
 
