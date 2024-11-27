@@ -99,7 +99,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         {/* Title and Icon */}
         <View style={styles.titleContainer}>
           <Image source={titleIcon} style={styles.titleIcon} />
-          <Text style={styles.title}>{t('menu.title')}</Text>
+          <Text style={styles.title}>{t('general.appName')}</Text>
         </View>
 
         {/* Menu Items */}
@@ -107,7 +107,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           <TouchableOpacity onPress={() => onPressNavigation('privacyPolicy')}>
             <View style={styles.menuItem}>
               <PrivacyPolicyIcon />
-              <Text style={styles.menuText}>{t('menu.privacyPolicy')}</Text>
+              <Text style={styles.menuText}>{t('general.privacyPolicy')}</Text>
             </View>
           </TouchableOpacity>
 

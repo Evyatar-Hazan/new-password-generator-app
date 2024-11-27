@@ -43,7 +43,7 @@ const SplashScreen: React.FC = () => {
         ]}
       />
       <Animated.Text style={[styles.text, {opacity: textAnim}]}>
-        {t('SplashScreen.title')}
+        {t('general.appName')}
       </Animated.Text>
     </View>
   );

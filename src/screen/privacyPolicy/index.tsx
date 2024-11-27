@@ -80,7 +80,7 @@ const PrivacyPolicy: React.FC<{ navigation: PrivacyPolicyScreenNavigationProp }>
         <TextBox 
           gapReduction={5}
           subText={t('privacyPolicy.sourceDocument.description')}
-          linkText={t('privacyPolicy.sourceDocument.link')}
+          linkText={t('general.privacyPolicy')}
           onPress={openSourceDocument}
         />
       </ScrollBar>

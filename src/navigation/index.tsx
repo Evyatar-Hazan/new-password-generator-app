@@ -44,17 +44,17 @@ const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={createScreenOptions(t('screen.homeScreenTitle'))}
+          options={createScreenOptions(t('general.appName'))}
         />
         <Stack.Screen
           name="Hub"
           component={Hub}
-          options={createScreenOptions(t('screen.hubScreenTitle'))}
+          options={createScreenOptions(t('general.appName'), true)}
         />
         <Stack.Screen
           name="privacyPolicy"
           component={PrivacyPolicy}
-          options={createScreenOptions(t('screen.hubScreenTitle'))}
+          options={createScreenOptions(t('general.privacyPolicy'), true)}
         />
         {/* Uncomment and implement the LanguageButton screen if needed */}
         {/* <Stack.Screen
