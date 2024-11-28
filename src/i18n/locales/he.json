@@ -25,7 +25,7 @@
     "settings": "הגדרות",
     "darkMode": "מצב כהה",
     "language": "שפה",
-    "privacyNotice": "באמצעות שימוש באפליקציה זו, אתה מסכים למדיניות הפרטיות שלנו"
+    "privacyNotice": "באמצעות שימוש באפליקציה זו, אתה מסכים ל[link1] שלנו"
   },
   "privacyPolicy": {
     "lastUpdate": {
@@ -154,7 +154,13 @@
     },
     "getInTouch": {
       "description": "צור קשר:",
-      "details": "צור קשר:  יש לך שאלה או הצעה? אני אשמח לשמוע ממך! אתם מוזמנים ליצור איתי קשר בכתובת evyatarhazan3.14@gmail.com או להתחבר אלי בלינקדאין (אביתר חזן). אתה יכול גם להתחבר למנדי בלינקדאין כאן . הקלט שלך חשוב לאין ערוך בעיצוב העתיד של מחולל סיסמאות.\nתודה שהיית חלק מהמסע שלנו!\nבברכה, אביתר חזן מייסד ומפתח, מחולל סיסמאות"
+      "details": "צור קשר:  יש לך שאלה או הצעה? אני אשמח לשמוע ממך! אתם מוזמנים ליצור איתי קשר בכתובת [link1] או להתחבר אלי בלינקדאין [link2]. אתה יכול גם להתחבר למנדי בלינקדאין [link3] . הקלט שלך חשוב לאין ערוך בעיצוב העתיד של מחולל סיסמאות.",
+      "journey": "תודה שהיית חלק מהמסע שלנו!",
+      "warmRegards": "בברכה, אביתר חזן מייסד ומפתח, מחולל סיסמאות",
+      "owner": "אביתר חזן",
+      "here": "כאן",
+      "linkOwner": "https://www.linkedin.com/in/evyatar-hazan-662235210?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "link": "https://www.linkedin.com/in/mendy-bloy-5671b8276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
     }
   }
 }

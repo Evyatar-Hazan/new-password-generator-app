@@ -7,14 +7,17 @@ interface CardProps {
   content?: string;
   links?: { text: string; url: string }[];
   children?: ReactNode;
+  dominantTitleStyles?: TextStyle;
+  titleStyles?: TextStyle;
+  contentStyles?: TextStyle;
 }
 
-const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, children }) => {
+const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, children, dominantTitleStyles, titleStyles, contentStyles }) => {
   const renderContent = () => {
     if (!content) return null;
 
     if (!links || links.length === 0) {
-      return <Text style={styles.content}>{content}</Text>;
+      return <Text style={[styles.content, contentStyles]}>{content}</Text>;
     }
 
     const splitContent = content.split(/(\[link\d+\])/g);
@@ -46,8 +49,8 @@ const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, child
 
   return (
     <View style={styles.card}>
-      {dominantTitle && <Text style={styles.dominantTitle}>{dominantTitle}</Text>}
-      {title && <Text style={styles.title}>{title}</Text>}
+      {dominantTitle && <Text style={[styles.dominantTitle, dominantTitleStyles]}>{dominantTitle}</Text>}
+      {title && <Text style={[styles.title, titleStyles]}>{title}</Text>}
       {renderContent()}
       {children && <View style={styles.childrenContainer}>{children}</View>}
     </View>

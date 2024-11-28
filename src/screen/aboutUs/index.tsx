@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
 import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
-import TextBox from '../../component/text';
+import Card from '../../component/card/Card';
 
 type AboutUsScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.AboutUs>;
 
@@ -16,40 +16,38 @@ const AboutUs: React.FC<{ navigation: AboutUsScreenNavigationProp }> = ({ naviga
   return (
     <View style={styles.container}>
       <ScrollBar>
-        <TextBox 
-          gapReduction={5}
-          title={t('aboutUs.welcome.description')} 
-          subText={t('aboutUs.welcome.details')}
+        <Card 
+          dominantTitle={t('aboutUs.welcome.description')} 
+          content={t('aboutUs.welcome.details')}
         />
-        <TextBox 
-          gapReduction={5}
+        <Card 
           title={t('aboutUs.inspiration.description')} 
-          subText={t('aboutUs.inspiration.details')}
+          content={t('aboutUs.inspiration.details')}
         />
-        <TextBox 
-          gapReduction={5}
+        <Card 
           title={t('aboutUs.developmentJourney.description')} 
-          subText={t('aboutUs.developmentJourney.details')}
+          content={t('aboutUs.developmentJourney.details')}
         />
-        <TextBox 
-          gapReduction={5}
+        <Card
           title={t('aboutUs.featuresAndBenefits.description')} 
-          subText={t('aboutUs.featuresAndBenefits.details')}
+          content={t('aboutUs.featuresAndBenefits.details')}
         />
-        <TextBox 
-          gapReduction={5}
+        <Card
           title={t('aboutUs.futurePlans.description')} 
-          subText={t('aboutUs.futurePlans.details')}
+          content={t('aboutUs.futurePlans.details')}
         />
-        <TextBox 
-          gapReduction={5}
+        <Card
           title={t('aboutUs.thankYou.description')} 
-          subText={t('aboutUs.thankYou.details')}
+          content={t('aboutUs.thankYou.details')}
         />
-        <TextBox 
-          gapReduction={5}
+        <Card
           title={t('aboutUs.getInTouch.description')} 
-          subText={t('aboutUs.getInTouch.details')}
+          content={t('aboutUs.getInTouch.details')}
+          links={[
+            {text: t('privacyPolicy.contact.emailName'), url: t('privacyPolicy.contact.email')}, 
+            {text: t('aboutUs.getInTouch.owner'), url: t('aboutUs.getInTouch.linkOwner')},
+            {text: t('aboutUs.getInTouch.here'), url: t('aboutUs.getInTouch.link')}
+          ]}
         />
       </ScrollBar>
       <FrameFooter

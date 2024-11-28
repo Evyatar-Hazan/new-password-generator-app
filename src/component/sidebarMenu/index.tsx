@@ -26,6 +26,7 @@ import {
 } from '../../assets/svg/menuButton';
 import { RootStackParamList, ScreenEnum } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Card from '../card/Card';
 
 
 type SidebarMenuNavigationProp = StackNavigationProp<RootStackParamList, 'PrivacyPolicy'>;
@@ -184,7 +185,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           <TouchableOpacity style={styles.iconContainer}>
             <PrivacyPolicyNoticeIcon />
           </TouchableOpacity>
-          <Text style={styles.privacyText}>{t('menu.privacyNotice')}</Text>
+          <Card 
+            content={t('menu.privacyNotice')}
+            links={[{text: t('general.privacyPolicy'), url: t('privacyPolicy.sourceDocument.link')}]}
+          />
         </View>
       </Animated.View>
     </Modal>

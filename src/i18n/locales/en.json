@@ -25,7 +25,7 @@
     "settings": "Settings",
     "darkMode": "Dark Mode",
     "language": "Language",
-    "privacyNotice": "By using this app, you agree to our Privacy Policy"
+    "privacyNotice": "By using this app, you agree to our [link1]"
   },
   "privacyPolicy": {
     "lastUpdate": {
@@ -151,8 +151,14 @@
       "details": "I want to extend my heartfelt gratitude to each and every one of you for choosing Password-Generator. Your support and feedback drive us to continuously improve and refine our tool. A special thanks to the creator of the original idea, Mandy, for inspiring this project. Your contribution has been invaluable. Together, we can create a safer online environment for everyone."
     },
     "getInTouch": {
-      "description": "- Keep Your Personal Word Secret:",
-      "details": "Have a question or suggestion? I'd love to hear from you! Feel free to reach out to me at evyatarhazan3.14@gmail.com or connect with me on LinkedIn (Evyatar Hazan). You can also connect with Mandy on LinkedIn here. Your input is invaluable in shaping the future of Password-Generator. \nThank you for being a part of our journey! \nWarm regards, Evyatar Hazan Founder & Developer, Password-Generator"
+      "description": "Get in Touch:",
+      "details": "Have a question or suggestion? I'd love to hear from you! Feel free to reach out to me at [link1] or connect with me on LinkedIn [link2]. You can also connect with Mandy on LinkedIn [link3]. Your input is invaluable in shaping the future of Password-Generator.",
+      "journey": "Thank you for being a part of our journey!",
+      "warmRegards": "Warm regards, Evyatar Hazan Founder & Developer, Password-Generator",
+      "owner": "Evyatar Hazan",
+      "here": "here",
+      "linkOwner": "https://www.linkedin.com/in/evyatar-hazan-662235210?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "link": "https://www.linkedin.com/in/mendy-bloy-5671b8276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
     }
   }
 } 
