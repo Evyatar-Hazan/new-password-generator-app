@@ -65,11 +65,13 @@
     },
     "contact": {
       "description": "Contact Us:",
-      "details": "If you have any questions or concerns about this privacy policy, please contact us at ",
-      "email": "evyatar.hazan3.14@gmail.com"
+      "details": "If you have any questions or concerns about this privacy policy, please contact us at [link1]",
+      "email": "mailto:evyatar.hazan3.14@gmail.com",
+      "emailName": "Email"
     },
     "sourceDocument": {
-      "description": "For the source document, please visit our "
+      "description": "For the source document, please visit our [link1]",
+      "link": "https://docs.google.com/document/d/14S4NDZgweh8Iin8ILHM1xWVVNOqVZ0XlfDtiVYTinSQ/edit?usp=sharing"
     }
   },
   "aboutApp": {
@@ -101,15 +103,15 @@
     "securityTips": {
       "title": "Security Tips:",
       "secret": {
-        "description": "- Keep Your Personal Word Secret:",
+        "description": "● Keep Your Personal Word Secret:",
         "details": "Do not share the personal word you use with anyone. It is the key to generating your unique passwords."
       },
       "obvious": {
-        "description": "- Avoid Using Obvious Platform Words:",
+        "description": "● Avoid Using Obvious Platform Words:",
         "details": "Choose platform-specific words that are not easily guessable by others."
       },
       "securityNeeds": {
-        "description": "- Select the Password Option that Fits Your Security Needs:",
+        "description": "● Select the Password Option that Fits Your Security Needs:",
         "details": "Depending on the sensitivity of the account, choose the generated password option that best aligns with your security requirements."
       }
     }, 

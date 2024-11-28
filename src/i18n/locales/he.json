@@ -67,11 +67,13 @@
     },
     "contact": {
       "description": "צור קשר:",
-      "details": "אם יש לך שאלות או חששות לגבי מדיניות פרטיות זו, אנא צור איתנו קשר בכתובת: ",
-      "email": "evyatar.hazan3.14@gmail.com"
+      "details": "אם יש לך שאלות או חששות לגבי מדיניות פרטיות זו, אנא צור איתנו קשר בכתובת: [link1]",
+      "email": "mailto:evyatar.hazan3.14@gmail.com",
+      "emailName": "מייל"
     },
     "sourceDocument": {
-      "description": "למסמך המקור, בקר ב "
+      "description": "למסמך המקור, בקר ב [link1]",
+      "link": "https://docs.google.com/document/d/14S4NDZgweh8Iin8ILHM1xWVVNOqVZ0XlfDtiVYTinSQ/edit?usp=sharing"
     }
   },
   "aboutApp": {
@@ -103,15 +105,15 @@
     "securityTips": {
       "title": "טיפים לאבטחה:",
       "secret": {
-        "description": "- שמור את המילה האישית שלך בסוד:",
+        "description": "● שמור את המילה האישית שלך בסוד:",
         "details": "אל תשתף את המילה האישית שבה אתה משתמש עם אף אחד. היא המפתח ליצירת הסיסמאות הייחודיות שלך."
       },
       "obvious": {
-        "description": "- הימנע משימוש במילות פלטפורמה ברורות:",
+        "description": "● הימנע משימוש במילות פלטפורמה ברורות:",
         "details": "בחר מילים ספציפיות לפלטפורמה שלא ניתן לנחש בקלות על ידי אחרים."
       },
       "securityNeeds": {
-        "description": "- בחר באפשרות הסיסמה המתאימה לצרכי האבטחה שלך:",
+        "description": "● בחר באפשרות הסיסמה המתאימה לצרכי האבטחה שלך:",
         "details": "בהתאם לרגישות החשבון, בחר באפשרות הסיסמה שנוצרה המתאימה ביותר לדרישות האבטחה שלך."
       }
     }, 
