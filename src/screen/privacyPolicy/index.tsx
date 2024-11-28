@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, StyleSheet, View } from 'react-native';
-import { RootStackParamList } from '../../navigation';
+import { RootStackParamList, ScreenEnum } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
 import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
 import TextBox from '../../component/text';
 
-type PrivacyPolicyScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PrivacyPolicy'>;
+type PrivacyPolicyScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.PrivacyPolicy>;
 
 const PrivacyPolicy: React.FC<{ navigation: PrivacyPolicyScreenNavigationProp }> = ({ navigation }) => {
   const { t } = useTranslation();

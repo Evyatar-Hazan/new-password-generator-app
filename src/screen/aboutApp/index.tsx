@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Linking, StyleSheet, View } from 'react-native';
-import { RootStackParamList } from '../../navigation';
+import { StyleSheet, View } from 'react-native';
+import { RootStackParamList, ScreenEnum } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
 import FrameFooter from '../../component/frameFooter';
@@ -10,7 +10,7 @@ import TextBox from '../../component/text';
 import FrameInput from '../../component/frameInput';
 import { extractLetters, combineNumbersAndLetters, transformToUpperCase, transformToSign, extractNumbers } from 'password-generator-npm';
 
-type AboutAppScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AboutApp'>;
+type AboutAppScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.AboutApp>;
 
 const AboutApp: React.FC<{ navigation: AboutAppScreenNavigationProp }> = ({ navigation }) => {
   const { t } = useTranslation();

@@ -24,7 +24,7 @@ import {
   SettingsIcon,
   ShareAppIcon,
 } from '../../assets/svg/menuButton';
-import { RootStackParamList } from '../../navigation';
+import { RootStackParamList, ScreenEnum } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
@@ -105,24 +105,24 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
         {/* Menu Items */}
         <View style={styles.menuItemsContainer}>
-          <TouchableOpacity onPress={() => onPressNavigation('PrivacyPolicy')}>
+          <TouchableOpacity onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}>
             <View style={styles.menuItem}>
               <PrivacyPolicyIcon />
               <Text style={styles.menuText}>{t('general.privacyPolicy')}</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => onPressNavigation('AboutApp')}>
+          <TouchableOpacity onPress={() => onPressNavigation(ScreenEnum.AboutApp)}>
             <View style={styles.menuItem}>
               <AboutTheAppIcon />
               <Text style={styles.menuText}>{t('general.aboutApp')}</Text>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => onMenuItemPress('About Us')}>
+          <TouchableOpacity onPress={() => onPressNavigation(ScreenEnum.AboutUs)}>
             <View style={styles.menuItem}>
               <AboutUsIcon />
-              <Text style={styles.menuText}>{t('menu.aboutUs')}</Text>
+              <Text style={styles.menuText}>{t('general.aboutUs')}</Text>
             </View>
           </TouchableOpacity>
 

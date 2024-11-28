@@ -12,11 +12,11 @@ import {
 import FrameInput from '../../component/frameInput';
 import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
-import Navigation, { RootStackParamList } from '../../navigation';
+import { RootStackParamList, ScreenEnum } from '../../navigation';
 import Hub from '../hub';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Home>;
 
 const Home: React.FC<{ navigation: HomeScreenNavigationProp }> = ({ navigation }) => {
   const {t} = useTranslation();

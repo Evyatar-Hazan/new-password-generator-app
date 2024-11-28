@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   View,
-  Text,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
@@ -11,9 +10,8 @@ import {
 } from 'react-native';
 import FrameInput from '../../component/frameInput';
 import FrameFooter from '../../component/frameFooter';
-import BackIcon from '../../assets/svg/back';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation';
+import {RootStackParamList, ScreenEnum} from '../../navigation';
 import { RouteProp } from '@react-navigation/native';
 import { extractLetters, combineNumbersAndLetters, transformToUpperCase, transformToSign, extractNumbers } from 'password-generator-npm';
 import FourIcon from '../../assets/svg/footer/fourIcon';
@@ -21,7 +19,7 @@ import EightIcon from '../../assets/svg/footer/eightIcon';
 import TwelveIcon from '../../assets/svg/footer/twelveIcon';
 import PasswordLengthIcon from '../../assets/svg/footer/passwordLengthIcon';
 
-type HubScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Hub'>;
+type HubScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Hub>;
 type HubScreenRouteProp = RouteProp<RootStackParamList, 'Hub'>;
 
 type HubProps = {

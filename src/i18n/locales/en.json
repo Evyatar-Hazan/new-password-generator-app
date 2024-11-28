@@ -2,7 +2,8 @@
   "general": {
     "appName": "Password generator",
     "privacyPolicy": "Privacy Policy",
-    "aboutApp": "About the App"
+    "aboutApp": "About the App",
+    "aboutUs": "About Us"
   },
   "home": {
     "subTitle": "Enter two keywords to create a strong password. \nFor those two words you will get the same password.",
@@ -19,8 +20,6 @@
     "veryStrongTitle": "Includes a symbol"
   },
   "menu": {
-    "aboutApp": "About the App",
-    "aboutUs": "About Us",
     "shareApp": "Share App",
     "securityKey": "Security Key",
     "settings": "Settings",
@@ -122,6 +121,36 @@
       "thanks": {
         "details": "Thank you for choosing Password-Generator! Your online security is our priority. If you have any questions or concerns, feel free to contact our support team."
       }
+    }
+  },
+  "aboutUs": {
+    "welcome": {
+      "description": "Welcome to Password-Generator!",
+      "details": "Hello there! I'm Evyatar Hazan, the mind behind Password-Generator. It's a pleasure to have you here, and I'm excited to share the story of how Password-Generator came to fruition."
+    },
+    "inspiration": {
+      "description": "Inspiration:",
+      "details": "Like many of you, I've been deeply concerned about online security. I realized that one of the simplest yet most effective ways to protect oneself online is by using strong, unique passwords for each account. However, I found that many people struggled with creating such passwords. This inspired me to develop Password-Generator, a tool that simplifies the process of generating secure passwords."
+    },
+    "developmentJourney": {
+      "description": "Development Journey:",
+      "details": "The journey of creating Password-Generator has been filled with challenges and triumphs. From researching the best encryption algorithms to designing a user-friendly interface, every step has been a labor of love. Despite the obstacles, the satisfaction of contributing to online security has made it all worthwhile."
+    },
+    "featuresAndBenefits": {
+      "description": "Features and Benefits:",
+      "details": "Password-Generator isn't just another run-of-the-mill password generator. It's a robust solution crafted with simplicity, security, and privacy in mind. One of our core principles is that we never store any information about you or your passwords at any stage of the process. Your privacy is paramount, and you can trust Password-Generator to generate strong passwords without compromising your sensitive information. With Password-Generator, you can effortlessly create strong passwords tailored to your specific requirements. Our tool ensures that your online accounts remain shielded from unauthorized access, giving you peace of mind."
+    },
+    "futurePlans": {
+      "description": "Future Plans:",
+      "details": "In the future, we also plan to expand our offerings to provide even more convenience and flexibility to our users. We're gearing up to launch a dedicated website and a Chrome extension for Password-Generator. These additions will further streamline the password management process, allowing you to access our tool seamlessly across different platforms and browsers. Stay tuned for these exciting developments!"
+    },
+    "thankYou": {
+      "description": "Thank You:",
+      "details": "I want to extend my heartfelt gratitude to each and every one of you for choosing Password-Generator. Your support and feedback drive us to continuously improve and refine our tool. A special thanks to the creator of the original idea, Mandy, for inspiring this project. Your contribution has been invaluable. Together, we can create a safer online environment for everyone."
+    },
+    "getInTouch": {
+      "description": "- Keep Your Personal Word Secret:",
+      "details": "Have a question or suggestion? I'd love to hear from you! Feel free to reach out to me at evyatarhazan3.14@gmail.com or connect with me on LinkedIn (Evyatar Hazan). You can also connect with Mandy on LinkedIn here. Your input is invaluable in shaping the future of Password-Generator. \nThank you for being a part of our journey! \nWarm regards, Evyatar Hazan Founder & Developer, Password-Generator"
     }
   }
 } 
