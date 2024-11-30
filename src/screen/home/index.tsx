@@ -10,11 +10,11 @@ import {
   ScrollView,
 } from 'react-native';
 import FrameInput from '../../component/frameInput';
-import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Card from '../../component/card/Card';
+import Footer from '../../component/footerButton';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Home>;
 
@@ -64,12 +64,14 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-
-      <FrameFooter
-        mapRenderButton={[
-          {IconComponent: BackIcon, onPress: () => onPressGenerator()},
+      <Footer
+        buttons={[
+          {
+            icon: BackIcon,
+            onPress: () => onPressGenerator(),
+          },
         ]}
-      />
+        />
     </View>
   );
 };

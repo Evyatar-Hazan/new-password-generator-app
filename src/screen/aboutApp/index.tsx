@@ -4,9 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
-import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
-import TextBox from '../../component/text';
 import FrameInput from '../../component/frameInput';
 import {
   extractLetters,
@@ -16,6 +14,7 @@ import {
   extractNumbers,
 } from 'password-generator-npm';
 import Card from '../../component/card/Card';
+import Footer from '../../component/footerButton';
 
 type AboutAppScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -106,11 +105,14 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
           <Card content={t('aboutApp.importantNote.thanks.details')} />
         </Card>
       </ScrollBar>
-      <FrameFooter
-        mapRenderButton={[
-          {IconComponent: BackIcon, onPress: () => navigation.goBack()},
+      <Footer
+        buttons={[
+          {
+            icon: BackIcon,
+            onPress: () => navigation.goBack(),
+          },
         ]}
-      />
+        />
     </View>
   );
 };

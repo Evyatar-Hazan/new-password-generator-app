@@ -9,7 +9,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import FrameInput from '../../component/frameInput';
-import FrameFooter from '../../component/frameFooter';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import { RouteProp } from '@react-navigation/native';
@@ -18,6 +17,7 @@ import FourIcon from '../../assets/svg/footer/fourIcon';
 import EightIcon from '../../assets/svg/footer/eightIcon';
 import TwelveIcon from '../../assets/svg/footer/twelveIcon';
 import PasswordLengthIcon from '../../assets/svg/footer/passwordLengthIcon';
+import Footer from '../../component/footerButton';
 
 type HubScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Hub>;
 type HubScreenRouteProp = RouteProp<RootStackParamList, 'Hub'>;
@@ -96,22 +96,22 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <FrameFooter
-        mapRenderButton={[
+      <Footer
+        buttons={[
           {
-            IconComponent: FourIcon,
+            icon: FourIcon,
             onPress: () => setNumCharacters(4),
           },
           {
-            IconComponent: EightIcon,
+            icon: EightIcon,
             onPress: () => setNumCharacters(8),
           },
           {
-            IconComponent: TwelveIcon,
+            icon: TwelveIcon,
             onPress: () => setNumCharacters(12),
           },
           {
-            IconComponent: PasswordLengthIcon,
+            icon: PasswordLengthIcon,
             onPress: () => setNumCharacters,
           },
         ]}

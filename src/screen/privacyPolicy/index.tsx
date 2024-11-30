@@ -4,10 +4,9 @@ import {Linking, StyleSheet, View} from 'react-native';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
-import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
-import TextBox from '../../component/text';
 import Card from '../../component/card/Card';
+import Footer from '../../component/footerButton';
 
 type PrivacyPolicyScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -84,11 +83,14 @@ const PrivacyPolicy: React.FC<{
         />
 
       </ScrollBar>
-      <FrameFooter
-        mapRenderButton={[
-          {IconComponent: BackIcon, onPress: () => navigation.goBack()},
+      <Footer
+        buttons={[
+          {
+            icon: BackIcon,
+            onPress: () => navigation.goBack(),
+          },
         ]}
-      />
+        />
     </View>
   );
 };

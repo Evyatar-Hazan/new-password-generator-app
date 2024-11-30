@@ -4,9 +4,9 @@ import { StyleSheet, View } from 'react-native';
 import { RootStackParamList, ScreenEnum } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
-import FrameFooter from '../../component/frameFooter';
 import BackIcon from '../../assets/svg/back';
 import Card from '../../component/card/Card';
+import Footer from '../../component/footerButton';
 
 type AboutUsScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.AboutUs>;
 
@@ -50,9 +50,12 @@ const AboutUs: React.FC<{ navigation: AboutUsScreenNavigationProp }> = ({ naviga
           ]}
         />
       </ScrollBar>
-      <FrameFooter
-        mapRenderButton={[
-          { IconComponent: BackIcon, onPress: () => navigation.goBack() },
+        <Footer
+        buttons={[
+          {
+            icon: BackIcon,
+            onPress: () => navigation.goBack(),
+          },
         ]}
         />
     </View>
