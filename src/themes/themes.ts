@@ -8,6 +8,7 @@ type Theme = {
     medium: string;
     strong: string;
     veryStrong: string;
+    gray: string;
 
   };
   
@@ -20,7 +21,8 @@ type Theme = {
     weak: 'red',
     medium: 'orange',
     strong: 'orange',
-    veryStrong: 'green'
+    veryStrong: 'green',
+    gray: '#767577',
   };
   
   const darkTheme: Theme = {
@@ -32,7 +34,8 @@ type Theme = {
     weak: 'red',
     medium: 'orange',
     strong: 'orange',
-    veryStrong: 'green'
+    veryStrong: 'green',
+    gray: '#767577',
   };
   
   export const themes: Record<'light' | 'dark', Theme> = { light: lightTheme, dark: darkTheme };

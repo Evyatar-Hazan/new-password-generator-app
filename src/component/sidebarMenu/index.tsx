@@ -29,6 +29,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Card from '../card/Card';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
+import { useRTL } from '../../i18n/RTLContext';
 
 
 type SidebarMenuNavigationProp = StackNavigationProp<RootStackParamList, 'PrivacyPolicy'>;
@@ -49,6 +50,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   const {t} = useTranslation();
   const { theme, setTheme } = useTheme();
   const colors = themes[theme];
+  const { isRTL } = useRTL()
   const screenWidth = Dimensions.get('window').width;
   const slideAnim = useRef(new Animated.Value(-screenWidth * 0.75)).current;
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -170,7 +172,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               <View style={styles(colors).settingItem}>
                 <DarkModeIcon />
                 <Text style={styles(colors).settingText}>{t('menu.darkMode')}</Text>
-                <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+                <Switch value={isDarkMode} onValueChange={toggleDarkMode}
+                thumbColor={isDarkMode ? colors.mainPurple : colors.background}
+                trackColor={{ false: colors.gray, true: colors.mainLightPurple }}
+                 />
               </View>
 
               {/* Language */}
@@ -180,6 +185,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 <Switch
                   value={isLanguageEnglish}
                   onValueChange={value => setIsLanguageEnglish(value)}
+                  thumbColor={isRTL ? colors.mainPurple : colors.background}
+                  trackColor={{ false: colors.gray, true: colors.mainLightPurple }}
                 />
               </View>
             </View>
