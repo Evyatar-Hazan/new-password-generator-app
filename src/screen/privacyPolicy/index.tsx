@@ -1,14 +1,14 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Linking, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
 import BackIcon from '../../assets/svg/back';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
-import { useTheme } from '../../themes/ThemeContext';
-import { themes } from '../../themes/themes';
+import {useTheme} from '../../themes/ThemeContext';
+import {themes} from '../../themes/themes';
 
 type PrivacyPolicyScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,7 +19,7 @@ const PrivacyPolicy: React.FC<{
   navigation: PrivacyPolicyScreenNavigationProp;
 }> = ({navigation}) => {
   const {t} = useTranslation();
-  const { theme } = useTheme();
+  const {theme} = useTheme();
   const colors = themes[theme];
 
   return (
@@ -72,14 +72,23 @@ const PrivacyPolicy: React.FC<{
         <Card
           title={t('privacyPolicy.contact.description')}
           content={t('privacyPolicy.contact.details')}
-          links={[{text: t('privacyPolicy.contact.emailName'), url: t('privacyPolicy.contact.email')}]}
+          links={[
+            {
+              text: t('privacyPolicy.contact.emailName'),
+              url: t('privacyPolicy.contact.email'),
+            },
+          ]}
         />
 
         <Card
           content={t('privacyPolicy.sourceDocument.description')}
-          links={[{text: t('general.privacyPolicy'), url: t('privacyPolicy.sourceDocument.link')}]}
+          links={[
+            {
+              text: t('general.privacyPolicy'),
+              url: t('privacyPolicy.sourceDocument.link'),
+            },
+          ]}
         />
-
       </ScrollBar>
       <Footer
         buttons={[
@@ -88,17 +97,17 @@ const PrivacyPolicy: React.FC<{
             onPress: () => navigation.goBack(),
           },
         ]}
-        />
+      />
     </View>
   );
 };
 
 const styles = (colors: any) =>
   StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background, 
-  },
-});
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+  });
 
 export default PrivacyPolicy;
