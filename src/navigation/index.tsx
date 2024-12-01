@@ -9,6 +9,8 @@ import Hub from '../screen/hub';
 import PrivacyPolicy from '../screen/privacyPolicy';
 import AboutApp from '../screen/aboutApp';
 import AboutUs from '../screen/aboutUs';
+import { useTheme } from '../themes/ThemeContext';
+import { themes } from '../themes/themes';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -49,10 +51,17 @@ export interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+  const colors = themes[theme];
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ScreenEnum.Home}>
+      <Stack.Navigator initialRouteName={ScreenEnum.Home}
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: colors.background,
+        },
+      }}>
         <Stack.Screen
           name={ScreenEnum.Home}
           component={Home}

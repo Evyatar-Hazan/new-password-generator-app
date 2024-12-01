@@ -18,6 +18,8 @@ import EightIcon from '../../assets/svg/footer/eightIcon';
 import TwelveIcon from '../../assets/svg/footer/twelveIcon';
 import PasswordLengthIcon from '../../assets/svg/footer/passwordLengthIcon';
 import Footer from '../../component/footerButton';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 type HubScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Hub>;
 type HubScreenRouteProp = RouteProp<RootStackParamList, 'Hub'>;
@@ -29,6 +31,8 @@ type HubProps = {
 
 const Hub: React.FC<HubProps> = ({navigation, route}) => {
   const {t} = useTranslation();
+  const { theme } = useTheme();
+  const colors = themes[theme];
   const {Keyword1, Keyword2} = route.params;
   const KeywordArr = [Keyword1, Keyword2];
   const [numCharacters, setNumCharacters] = useState<number>(8);
@@ -46,11 +50,11 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={styles(colors).container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={[styles.innerContainer, keyboardVisible && styles.innerContainerKeyboard]}>
-          <View style={styles.inputContainer}>
+        <View style={[styles(colors).innerContainer, keyboardVisible && styles(colors).innerContainerKeyboard]}>
+          <View style={styles(colors).inputContainer}>
             <FrameInput 
               isInput={false} 
               label={t("hub.veryStrongTitle")} 
@@ -59,7 +63,7 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
             />
           </View>
 
-          <View style={styles.inputContainer}>
+          <View style={styles(colors).inputContainer}>
             <FrameInput 
               isInput={false} 
               label={t("hub.strongTitle")} 
@@ -68,7 +72,7 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
             />
           </View>
 
-          <View style={styles.inputContainer}>
+          <View style={styles(colors).inputContainer}>
             <FrameInput 
               isInput={false} 
               label={t("hub.mediumTitle")} 
@@ -77,7 +81,7 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
             />
           </View>
 
-          <View style={styles.inputContainer}>
+          <View style={styles(colors).inputContainer}>
             <FrameInput 
               isInput={false} 
               label={t("hub.weakTitle")} 
@@ -86,7 +90,7 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
             />
           </View>
 
-          <View style={styles.inputContainer}>
+          <View style={styles(colors).inputContainer}>
             <FrameInput 
               isInput={false} 
               label={t("hub.veryWeakTitle")} 
@@ -120,9 +124,11 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background, 
   },
   innerContainer: {
     flex: 1,
@@ -131,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: '20%',
   },
   innerContainerKeyboard: {
-    marginTop: 0, // Adjusts when the keyboard is visible
+    marginTop: 0,
   },
   inputContainer: {
     flex: 1,

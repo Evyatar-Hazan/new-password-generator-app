@@ -5,6 +5,7 @@ import './i18n/i18n';
 import {useTranslation} from 'react-i18next';
 import {RTLProvider} from './i18n/RTLContext';
 import SplashScreen from './component/splashScreen';
+import { ThemeProvider } from './themes/ThemeContext';
 
 const App: React.FC = () => {
   const {i18n} = useTranslation();
@@ -30,9 +31,11 @@ const App: React.FC = () => {
   }
 
   return (
-    <RTLProvider>
-      <Navigation setCurrentLanguage={setCurrentLanguage} />
-    </RTLProvider>
+    <ThemeProvider>
+      <RTLProvider>
+        <Navigation setCurrentLanguage={setCurrentLanguage} />
+      </RTLProvider>
+    </ThemeProvider>
   );
 };
 

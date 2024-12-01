@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Animated, StyleSheet } from "react-native";
+import { useTheme } from "../../themes/ThemeContext";
+import { themes } from "../../themes/themes";
 
 type FooterButton = {
   icon: React.FC;
@@ -12,6 +14,8 @@ type FooterProps = {
 };
 
 const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => {
+  const { theme } = useTheme();
+  const colors = themes[theme];
   const [focusedIndex, setFocusedIndex] = useState<number | null>(defaultFocusedIndex);
   const [animations] = useState<Animated.Value[]>(
     buttons.map(() => new Animated.Value(0))
@@ -35,7 +39,7 @@ const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => 
   };
 
   return (
-    <View style={styles.footer}>
+    <View style={styles(colors).footer}>
       {buttons.map((button, index) => {
         const translateY = animations[index].interpolate({
           inputRange: [0, 1],
@@ -44,23 +48,23 @@ const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => 
 
         const backgroundColor = animations[index].interpolate({
           inputRange: [0, 1],
-          outputRange: ["transparent", "#6200EE"],
+          outputRange: ["transparent", colors.mainPurple],
         });
 
         return (
           <Animated.View
             key={index}
             style={[
-              styles.buttonContainer,
+              styles(colors).buttonContainer,
               { transform: [{ translateY }] },
             ]}
           >
             {focusedIndex === index && (
-              <View style={styles.oval} />
+              <View style={styles(colors).oval} />
             )}
             <Animated.View
               style={[
-                styles.button,
+                styles(colors).button,
                 { backgroundColor: backgroundColor as any },
               ]}
             >
@@ -75,7 +79,8 @@ const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => 
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   footer: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: "#B88AE8",
+    backgroundColor: colors.mainLightPurple,
     paddingVertical: 10,
     height: 70,
   },

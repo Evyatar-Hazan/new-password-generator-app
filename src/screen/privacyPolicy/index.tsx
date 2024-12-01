@@ -7,6 +7,8 @@ import ScrollBar from '../../component/scrollBar';
 import BackIcon from '../../assets/svg/back';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 type PrivacyPolicyScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -17,15 +19,11 @@ const PrivacyPolicy: React.FC<{
   navigation: PrivacyPolicyScreenNavigationProp;
 }> = ({navigation}) => {
   const {t} = useTranslation();
-
-  const openSourceDocument = () => {
-    Linking.openURL(
-      'https://docs.google.com/document/d/14S4NDZgweh8Iin8ILHM1xWVVNOqVZ0XlfDtiVYTinSQ/edit?usp=sharing',
-    );
-  };
+  const { theme } = useTheme();
+  const colors = themes[theme];
 
   return (
-    <View style={styles.container}>
+    <View style={styles(colors).container}>
       <ScrollBar>
         <Card
           content={
@@ -95,9 +93,11 @@ const PrivacyPolicy: React.FC<{
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background, 
   },
 });
 

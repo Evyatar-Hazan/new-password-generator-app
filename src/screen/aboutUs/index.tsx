@@ -7,14 +7,18 @@ import ScrollBar from '../../component/scrollBar';
 import BackIcon from '../../assets/svg/back';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 type AboutUsScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.AboutUs>;
 
 const AboutUs: React.FC<{ navigation: AboutUsScreenNavigationProp }> = ({ navigation }) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+  const colors = themes[theme];
 
   return (
-    <View style={styles.container}>
+    <View style={styles(colors).container}>
       <ScrollBar>
         <Card 
           dominantTitle={t('aboutUs.welcome.description')} 
@@ -62,9 +66,11 @@ const AboutUs: React.FC<{ navigation: AboutUsScreenNavigationProp }> = ({ naviga
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background, 
   },
 });
 

@@ -6,6 +6,8 @@ import {
   LayoutChangeEvent,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 interface scrollBarProps {
   children: React.ReactNode[];
@@ -15,6 +17,8 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [contentHeight, setContentHeight] = useState(1);
   const [containerHeight, setContainerHeight] = useState(1);
+  const { theme } = useTheme();
+  const colors = themes[theme];
 
   const handleContentSizeChange = (width: number, height: number) => {
     setContentHeight(height);
@@ -33,10 +37,10 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   });
 
   return (
-    <View style={styles.container} onLayout={handleLayout}>
+    <View style={styles(colors).container} onLayout={handleLayout}>
       <Animated.ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContent}
+        style={styles(colors).scrollView}
+        contentContainerStyle={styles(colors).scrollViewContent}
         showsVerticalScrollIndicator={false}
         onContentSizeChange={handleContentSizeChange}
         onScroll={Animated.event(
@@ -47,18 +51,18 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
       >
         {children}
       </Animated.ScrollView>
-      <View style={styles.scrollBarContainer}>
+      <View style={styles(colors).scrollBarContainer}>
         <Animated.View
           style={[
-            styles.scrollBar,
+            styles(colors).scrollBar,
             {
               height: scrollBarHeight,
             },
           ]}
         >
           <LinearGradient
-            colors={['#B88AE8', '#8A2BE2']}
-            style={styles.gradient}
+            colors={[colors.mainLightPurple, colors.mainPurple]}
+            style={styles(colors).gradient}
           />
         </Animated.View>
       </View>
@@ -66,7 +70,8 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',

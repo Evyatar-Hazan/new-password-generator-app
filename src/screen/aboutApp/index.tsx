@@ -15,6 +15,8 @@ import {
 } from 'password-generator-npm';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 type AboutAppScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -25,6 +27,8 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
   navigation,
 }) => {
   const {t} = useTranslation();
+  const { theme } = useTheme();
+  const colors = themes[theme];
   const KeywordArr = [
     t('aboutApp.exampleUsage.personalWord.details'),
     t('aboutApp.exampleUsage.platformWord.details'),
@@ -32,7 +36,7 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
   const numCharacters = 8;
 
   return (
-    <View style={styles.container}>
+    <View style={styles(colors).container}>
       <ScrollBar>
         <Card dominantTitle={t('aboutApp.gettingStarted.title')}>
           <Card
@@ -117,9 +121,11 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background, 
   },
 });
 

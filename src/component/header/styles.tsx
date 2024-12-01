@@ -1,15 +1,12 @@
-// src/component/header/styles.tsx
 import {StyleSheet} from 'react-native';
-import {useRTL} from '../../i18n/RTLContext';
 
-const isRTL = useRTL();
-
-export const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   headerContainer: {
-    flexDirection: isRTL ? 'row' : 'row-reverse',
+    flexDirection:  'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#B88AE8',
+    backgroundColor: colors.mainLightPurple,
     height: 70,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -24,6 +21,7 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     fontFamily: 'Righteous-Regular',
+    color: colors.text,
   },
   sideContainer: {
     width: 50,
@@ -31,3 +29,5 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default styles;

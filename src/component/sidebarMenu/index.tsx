@@ -27,6 +27,8 @@ import {
 import { RootStackParamList, ScreenEnum } from '../../navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Card from '../card/Card';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 
 type SidebarMenuNavigationProp = StackNavigationProp<RootStackParamList, 'PrivacyPolicy'>;
@@ -45,6 +47,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   navigation
 }) => {
   const {t} = useTranslation();
+  const { theme, setTheme } = useTheme();
+  const colors = themes[theme];
   const screenWidth = Dimensions.get('window').width;
   const slideAnim = useRef(new Animated.Value(-screenWidth * 0.75)).current;
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -84,6 +88,11 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
     }).start();
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    setTheme(!isDarkMode ? 'dark' : 'light');
+  };  
+
   const rotationInterpolate = rotation.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
@@ -95,57 +104,57 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
       animationType="none"
       transparent={true}
       onRequestClose={onClose}>
-      <TouchableOpacity style={styles.overlay} onPress={onClose} />
+      <TouchableOpacity style={styles(colors).overlay} onPress={onClose} />
       <Animated.View
-        style={[styles.container, {transform: [{translateX: slideAnim}]}]}>
+        style={[styles(colors).container, {transform: [{translateX: slideAnim}]}]}>
         {/* Title and Icon */}
-        <View style={styles.titleContainer}>
-          <Image source={titleIcon} style={styles.titleIcon} />
-          <Text style={styles.title}>{t('general.appName')}</Text>
+        <View style={styles(colors).titleContainer}>
+          <Image source={titleIcon} style={styles(colors).titleIcon} />
+          <Text style={styles(colors).title}>{t('general.appName')}</Text>
         </View>
 
         {/* Menu Items */}
-        <View style={styles.menuItemsContainer}>
+        <View style={styles(colors).menuItemsContainer}>
           <TouchableOpacity onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}>
-            <View style={styles.menuItem}>
+            <View style={styles(colors).menuItem}>
               <PrivacyPolicyIcon />
-              <Text style={styles.menuText}>{t('general.privacyPolicy')}</Text>
+              <Text style={styles(colors).menuText}>{t('general.privacyPolicy')}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => onPressNavigation(ScreenEnum.AboutApp)}>
-            <View style={styles.menuItem}>
+            <View style={styles(colors).menuItem}>
               <AboutTheAppIcon />
-              <Text style={styles.menuText}>{t('general.aboutApp')}</Text>
+              <Text style={styles(colors).menuText}>{t('general.aboutApp')}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => onPressNavigation(ScreenEnum.AboutUs)}>
-            <View style={styles.menuItem}>
+            <View style={styles(colors).menuItem}>
               <AboutUsIcon />
-              <Text style={styles.menuText}>{t('general.aboutUs')}</Text>
+              <Text style={styles(colors).menuText}>{t('general.aboutUs')}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => onMenuItemPress('Share App')}>
-            <View style={styles.menuItem}>
+            <View style={styles(colors).menuItem}>
               <ShareAppIcon />
-              <Text style={styles.menuText}>{t('menu.shareApp')}</Text>
+              <Text style={styles(colors).menuText}>{t('menu.shareApp')}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => onMenuItemPress('Security Key')}>
-            <View style={styles.menuItem}>
+            <View style={styles(colors).menuItem}>
               <SecurityKeyIcon />
-              <Text style={styles.menuText}>{t('menu.securityKey')}</Text>
+              <Text style={styles(colors).menuText}>{t('menu.securityKey')}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={toggleSettings}>
-            <View style={styles.menuItem}>
-              <View style={styles.menuContent}>
+            <View style={styles(colors).menuItem}>
+              <View style={styles(colors).menuContent}>
                 <SettingsIcon />
-                <Text style={styles.menuText}>{t('menu.settings')}</Text>
+                <Text style={styles(colors).menuText}>{t('menu.settings')}</Text>
               </View>
               <Animated.View
                 style={{transform: [{rotate: rotationInterpolate}]}}>
@@ -156,21 +165,18 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
           {/* Settings Options */}
           {isSettingsOpen && (
-            <View style={styles.settingsContainer}>
+            <View style={styles(colors).settingsContainer}>
               {/* Dark Mode */}
-              <View style={styles.settingItem}>
+              <View style={styles(colors).settingItem}>
                 <DarkModeIcon />
-                <Text style={styles.settingText}>{t('menu.darkMode')}</Text>
-                <Switch
-                  value={isDarkMode}
-                  onValueChange={value => setIsDarkMode(value)}
-                />
+                <Text style={styles(colors).settingText}>{t('menu.darkMode')}</Text>
+                <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
               </View>
 
               {/* Language */}
-              <View style={styles.settingItem}>
+              <View style={styles(colors).settingItem}>
                 <LanguageIcon />
-                <Text style={styles.settingText}>{t('menu.language')}</Text>
+                <Text style={styles(colors).settingText}>{t('menu.language')}</Text>
                 <Switch
                   value={isLanguageEnglish}
                   onValueChange={value => setIsLanguageEnglish(value)}
@@ -181,8 +187,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         </View>
 
         {/* Privacy Policy Notice */}
-        <View style={styles.privacyContainer}>
-          <TouchableOpacity style={styles.iconContainer}>
+        <View style={styles(colors).privacyContainer}>
+          <TouchableOpacity style={styles(colors).iconContainer}>
             <PrivacyPolicyNoticeIcon />
           </TouchableOpacity>
           <Card 
@@ -195,7 +201,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -207,7 +214,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: '75%',
-    backgroundColor: '#FFF',
+    backgroundColor: colors.background,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: {width: 2, height: 0},
@@ -217,7 +224,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     borderWidth: 2,
-    borderColor: '#6200EE',
+    borderColor: colors.mainPurple,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -233,6 +240,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: colors.text
   },
   menuItemsContainer: {
     flexGrow: 1,
@@ -250,11 +258,12 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 16,
     marginLeft: 5,
+    color: colors.text
   },
   settingsContainer: {
     paddingLeft: 10,
     borderTopWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: colors.mainLightPurple,
   },
   settingItem: {
     flexDirection: 'row',
@@ -267,6 +276,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flex: 1,
     marginLeft: 10,
+    color: colors.text
   },
   privacyContainer: {
     padding: 10,

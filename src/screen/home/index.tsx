@@ -15,10 +15,14 @@ import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Home>;
 
 const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) => {
+  const { theme } = useTheme();
+  const colors = themes[theme];
   const {t} = useTranslation();
   const [Keyword1, setKeyword1] = useState('');
   const [Keyword2, setKeyword2] = useState('');
@@ -28,14 +32,14 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles(colors).container}>
       <KeyboardAvoidingView
-        style={styles.contentContainer}
+        style={styles(colors).contentContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             contentContainerStyle={[
-              styles.innerContainer,
+              styles(colors).innerContainer,
             ]}
             keyboardShouldPersistTaps="handled">
             <Card
@@ -45,7 +49,7 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
               contentStyles={{textAlign: 'center'}}
             />
 
-            <View style={styles.inputContainer}>
+            <View style={styles(colors).inputContainer}>
               <FrameInput
                 isInput={true}
                 label="Keyword 1"
@@ -76,9 +80,11 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background, 
   },
   contentContainer: {
     flex: 1,

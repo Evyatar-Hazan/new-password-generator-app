@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import { styles } from './styles';
 import MenuIcon from '../../assets/svg/menu';
 import BackIcon from '../../assets/svg/back';
 import { useRTL } from '../../i18n/RTLContext';
 import SidebarMenu from '../sidebarMenu';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
+import styles from './styles';
 
 interface GlobalHeaderProps {
   title: string;
@@ -18,6 +20,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   navigation,
 }) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
+  const { theme } = useTheme();
+  const colors = themes[theme];
   const { isRTL } = useRTL();
 
   const toggleMenu = () => {
@@ -29,18 +33,18 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   };
 
   return (
-    <View style={styles.headerContainer}>
-      <View style={styles.sideContainer}>
+    <View style={styles(colors).headerContainer}>
+      <View style={styles(colors).sideContainer}>
         {isRTL ? (
           showBackButton && <BackIcon onPress={() => navigation.goBack()} />
         ) : (
           <MenuIcon onPress={toggleMenu} />
         )}
       </View>
-      <View style={styles.headerTitleContainer}>
-        <Text style={styles.headerTitle}>{title}</Text>
+      <View style={styles(colors).headerTitleContainer}>
+        <Text style={styles(colors).headerTitle}>{title}</Text>
       </View>
-      <View style={styles.sideContainer}>
+      <View style={styles(colors).sideContainer}>
         {isRTL ? (
           <MenuIcon onPress={toggleMenu} />
         ) : (

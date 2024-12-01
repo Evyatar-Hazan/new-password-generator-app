@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, Text, View, Linking, TextStyle, ViewStyle } from 'react-native';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
 
 interface CardProps {
   dominantTitle?: string;
@@ -13,17 +15,19 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, children, dominantTitleStyles, titleStyles, contentStyles }) => {
+  const { theme } = useTheme();
+  const colors = themes[theme];
   const renderContent = () => {
     if (!content) return null;
 
     if (!links || links.length === 0) {
-      return <Text style={[styles.content, contentStyles]}>{content}</Text>;
+      return <Text style={[styles(colors).content, contentStyles]}>{content}</Text>;
     }
 
     const splitContent = content.split(/(\[link\d+\])/g);
 
     return (
-      <Text style={styles.content}>
+      <Text style={styles(colors).content}>
         {splitContent.map((part, index) => {
           const match = part.match(/\[link(\d+)\]/);
           if (match) {
@@ -33,7 +37,7 @@ const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, child
               return (
                 <Text
                   key={index}
-                  style={styles.link}
+                  style={styles(colors).link}
                   onPress={() => Linking.openURL(link.url)}
                 >
                   {link.text}
@@ -48,17 +52,18 @@ const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, child
   };
 
   return (
-    <View style={styles.card}>
-      {dominantTitle && <Text style={[styles.dominantTitle, dominantTitleStyles]}>{dominantTitle}</Text>}
-      {title && <Text style={[styles.title, titleStyles]}>{title}</Text>}
+    <View style={styles(colors).card}>
+      {dominantTitle && <Text style={[styles(colors).dominantTitle, dominantTitleStyles]}>{dominantTitle}</Text>}
+      {title && <Text style={[styles(colors).title, titleStyles]}>{title}</Text>}
       {renderContent()}
-      {children && <View style={styles.childrenContainer}>{children}</View>}
+      {children && <View style={styles(colors).childrenContainer}>{children}</View>}
     </View>
   );
 };
 
 
-const styles = StyleSheet.create({
+const styles = (colors: any) =>
+  StyleSheet.create({
   card: {
     paddingLeft: 16,
     paddingRight: 16,
@@ -67,22 +72,23 @@ const styles = StyleSheet.create({
   dominantTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: colors.text,
     marginBottom: 8,
   } as TextStyle,
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: colors.text,
   } as TextStyle,
   content: {
     fontSize: 14,
-    color: '#333',
+    color: colors.text,
     lineHeight: 20,
     textAlign: "justify",
   } as TextStyle,
   link: {
-    color: '#B88AE8',
+    color: colors.mainLightPurple,
     textDecorationLine: 'underline',
   } as TextStyle,
   childrenContainer: {
