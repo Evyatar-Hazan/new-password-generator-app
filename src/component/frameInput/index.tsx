@@ -4,6 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
 import { useRTL } from '../../i18n/RTLContext';
+import CopyIcon from '../../assets/svg/copy';
 
 interface FrameInputProps {
   isInput: boolean;
@@ -11,7 +12,7 @@ interface FrameInputProps {
   placeholder?: string;
   value: string;
   onChangeText?: (text: string) => void;
-  strengthType?: 'veryWeak' | 'weak' | 'medium' | 'strong' | 'veryStrong';
+  strengthType?: string;
 }
 
 const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, value, onChangeText, strengthType }) => {
@@ -70,9 +71,7 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
         <>
           <View style={styles(colors, isRTL).textWithCopyContainer}>
             <Text style={styles(colors, isRTL).fixedText}>{value}</Text>
-            <TouchableOpacity style={styles(colors, isRTL).copyButton} onPress={handleCopy}>
-              <Text style={styles(colors, isRTL).copyButtonText}>Copy</Text>
-            </TouchableOpacity>
+            <CopyIcon onPress={handleCopy}/>
           </View>
           <View style={styles(colors, isRTL).progressBarContainer}>
             <View style={[styles(colors, isRTL).progressBar, progressBarStyle]} />
@@ -86,7 +85,7 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
 const styles = (colors: any, isRTL: boolean) =>
   StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 30,
     width: '90%',
     alignSelf: 'center',
     color: colors.text,
@@ -123,18 +122,6 @@ const styles = (colors: any, isRTL: boolean) =>
     flex: 1,
     color: colors.text,
     textAlign: isRTL ? 'right' : 'left',
-  },
-  copyButton: {
-    marginLeft: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    backgroundColor: '#007BFF',
-    borderRadius: 5,
-    color: colors.text,
-  },
-  copyButtonText: {
-    color: colors.text,
-    fontSize: 14,
   },
   progressBarContainer: {
     height: 6,
