@@ -1,12 +1,12 @@
-// src/i18n/RTLContext.tsx
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
+  useCallback,
   ReactNode,
 } from 'react';
-import {I18nManager} from 'react-native';
+import { I18nManager } from 'react-native';
 import i18n from '../i18n/i18n';
 
 interface RTLContextProps {
@@ -23,30 +23,42 @@ interface RTLProviderProps {
   children: ReactNode;
 }
 
-export const RTLProvider: React.FC<RTLProviderProps> = ({children}) => {
+export const RTLProvider: React.FC<RTLProviderProps> = ({ children }) => {
   const [isRTL, setIsRTL] = useState(I18nManager.isRTL);
 
+  const handleLanguageChange = useCallback(
+    (lng: string) => {
+      const rtl = lng === 'he';
+      setIsRTL(rtl);
+    },
+    []
+  );
+
   useEffect(() => {
-    const handleLanguageChange = (lng: string) => {
-      const isRTL = lng === 'he';
-      I18nManager.forceRTL(isRTL);
-      setIsRTL(isRTL);
+    const onLanguageChanged = (lng: string) => {
+      const currentRTL = lng === 'he';
+      if (currentRTL !== isRTL) {
+        handleLanguageChange(lng);
+      }
     };
 
-    i18n.on('languageChanged', handleLanguageChange);
+    i18n.on('languageChanged', onLanguageChanged);
 
     return () => {
-      i18n.off('languageChanged', handleLanguageChange);
+      i18n.off('languageChanged', onLanguageChanged);
     };
-  }, []);
+  }, [handleLanguageChange, isRTL]);
 
-  const toggleRTL = (isRTL: boolean) => {
-    I18nManager.forceRTL(isRTL);
-    setIsRTL(isRTL);
+  const toggleRTL = (newIsRTL: boolean) => {
+    const newLanguage = newIsRTL ? 'he' : 'en';
+    if (newIsRTL !== isRTL) {
+      i18n.changeLanguage(newLanguage);
+      handleLanguageChange(newLanguage);
+    }
   };
 
   return (
-    <RTLContext.Provider value={{isRTL, toggleRTL}}>
+    <RTLContext.Provider value={{ isRTL, toggleRTL }}>
       {children}
     </RTLContext.Provider>
   );

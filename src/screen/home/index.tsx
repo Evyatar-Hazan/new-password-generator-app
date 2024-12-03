@@ -52,14 +52,14 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
             <View style={styles(colors).inputContainer}>
               <FrameInput
                 isInput={true}
-                label="Keyword 1"
+                label={t('home.Keyword1Title')}
                 placeholder={t('home.inputPlaceholder')}
                 value={Keyword1}
                 onChangeText={setKeyword1}
               />
               <FrameInput
                 isInput={true}
-                label="Keyword 2"
+                label={t('home.Keyword2Title')}
                 placeholder={t('home.inputPlaceholder')}
                 value={Keyword2}
                 onChangeText={setKeyword2}

@@ -3,6 +3,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
+import { useRTL } from '../../i18n/RTLContext';
 
 interface FrameInputProps {
   isInput: boolean;
@@ -16,6 +17,7 @@ interface FrameInputProps {
 const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, value, onChangeText, strengthType }) => {
   const { theme } = useTheme();
   const colors = themes[theme];
+  const {isRTL} = useRTL();
   const handleCopy = () => {
     Clipboard.setString(value);
   };
@@ -26,23 +28,23 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
   
     switch (strengthType) {
       case 'veryWeak':
-        width = 20; // 20%
+        width = 20;
         color = colors.veryWeak;
         break;
       case 'weak':
-        width = 40; // 40%
+        width = 40;
         color = colors.weak;
         break;
       case 'medium':
-        width = 60; // 60%
+        width = 60;
         color = colors.medium;
         break;
       case 'strong':
-        width = 80; // 80%
+        width = 80;
         color = colors.strong;
         break;
       case 'veryStrong':
-        width = 100; // 100%
+        width = 100;
         color = colors.veryStrong;
         break;
     }
@@ -54,11 +56,11 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
   const progressBarStyle = getProgressStyle();
 
   return (
-    <View style={styles(colors).container}>
-      <Text style={styles(colors).label}>{label}</Text>
+    <View style={styles(colors, isRTL).container}>
+      <Text style={styles(colors, isRTL).label}>{label}</Text>
       {isInput ? (
         <TextInput
-          style={styles(colors).input}
+          style={styles(colors, isRTL).input}
           placeholder={placeholder}
           placeholderTextColor={colors.text}
           value={value}
@@ -66,14 +68,14 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
         />
       ) : (
         <>
-          <View style={styles(colors).textWithCopyContainer}>
-            <Text style={styles(colors).fixedText}>{value}</Text>
-            <TouchableOpacity style={styles(colors).copyButton} onPress={handleCopy}>
-              <Text style={styles(colors).copyButtonText}>Copy</Text>
+          <View style={styles(colors, isRTL).textWithCopyContainer}>
+            <Text style={styles(colors, isRTL).fixedText}>{value}</Text>
+            <TouchableOpacity style={styles(colors, isRTL).copyButton} onPress={handleCopy}>
+              <Text style={styles(colors, isRTL).copyButtonText}>Copy</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles(colors).progressBarContainer}>
-            <View style={[styles(colors).progressBar, progressBarStyle]} />
+          <View style={styles(colors, isRTL).progressBarContainer}>
+            <View style={[styles(colors, isRTL).progressBar, progressBarStyle]} />
           </View>
         </>
       )}
@@ -81,7 +83,7 @@ const FrameInput: React.FC<FrameInputProps> = ({ isInput, label, placeholder, va
   );
 };
 
-const styles = (colors: any) =>
+const styles = (colors: any, isRTL: boolean) =>
   StyleSheet.create({
   container: {
     marginBottom: 20,
@@ -93,7 +95,7 @@ const styles = (colors: any) =>
     fontSize: 16,
     marginBottom: 5,
     fontWeight: 'bold',
-    textAlign: 'left',
+    textAlign: isRTL ? 'right': 'left',
     color: colors.text,
   },
   input: {
@@ -103,10 +105,11 @@ const styles = (colors: any) =>
     borderRadius: 10,
     backgroundColor: 'transparent',
     color: colors.text,
+    textAlign: isRTL ? 'right': 'left',
 
   },
   textWithCopyContainer: {
-    flexDirection: 'row',
+    flexDirection: isRTL ? 'row-reverse' : 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderColor: colors.mainLightPurple,
@@ -119,6 +122,7 @@ const styles = (colors: any) =>
     fontSize: 16,
     flex: 1,
     color: colors.text,
+    textAlign: isRTL ? 'right' : 'left',
   },
   copyButton: {
     marginLeft: 10,
@@ -142,7 +146,7 @@ const styles = (colors: any) =>
   progressBar: {
     height: '100%',
     borderRadius: 5,
-    alignSelf: 'flex-start',
+    alignSelf: isRTL ? 'flex-end' : 'flex-start',
   },  
 });
 

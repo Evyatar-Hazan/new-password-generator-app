@@ -52,11 +52,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   const {t} = useTranslation();
   const {theme, setTheme} = useTheme();
   const colors = themes[theme];
-  const {isRTL} = useRTL();
+  const {isRTL, toggleRTL} = useRTL();
   const screenWidth = Dimensions.get('window').width;
   const slideAnim = useRef(new Animated.Value(-screenWidth * 0.75)).current;
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isLanguageEnglish, setIsLanguageEnglish] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const rotation = useRef(new Animated.Value(0)).current;
 
@@ -74,12 +73,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
       }).start();
     } else {
       Animated.timing(slideAnim, {
-        toValue: -screenWidth * 0.75,
+        toValue: isRTL ? screenWidth : -screenWidth * 0.75,
         duration: 300,
         useNativeDriver: true,
       }).start();
     }
-  }, [isVisible, slideAnim, screenWidth]);
+  }, [isVisible, slideAnim, screenWidth, isRTL]);
 
   const toggleSettings = () => {
     setIsSettingsOpen(!isSettingsOpen);
@@ -107,25 +106,30 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
       animationType="none"
       transparent={true}
       onRequestClose={onClose}>
-      <TouchableOpacity style={styles(colors).overlay} onPress={onClose} />
+      <TouchableOpacity
+        style={styles(colors, isRTL).overlay}
+        onPress={onClose}
+      />
       <Animated.View
         style={[
-          styles(colors).container,
+          styles(colors, isRTL).container,
           {transform: [{translateX: slideAnim}]},
         ]}>
         {/* Title and Icon */}
-        <View style={styles(colors).titleContainer}>
-          <Image source={titleIcon} style={styles(colors).titleIcon} />
-          <Text style={styles(colors).title}>{t('general.appName')}</Text>
+        <View style={styles(colors, isRTL).titleContainer}>
+          <Image source={titleIcon} style={styles(colors, isRTL).titleIcon} />
+          <Text style={styles(colors, isRTL).title}>
+            {t('general.appName')}
+          </Text>
         </View>
 
         {/* Menu Items */}
-        <View style={styles(colors).menuItemsContainer}>
+        <View style={styles(colors, isRTL).menuItemsContainer}>
           <TouchableOpacity
             onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}>
-            <View style={styles(colors).menuItem}>
+            <View style={styles(colors, isRTL).menuItem}>
               <PrivacyPolicyIcon />
-              <Text style={styles(colors).menuText}>
+              <Text style={styles(colors, isRTL).menuText}>
                 {t('general.privacyPolicy')}
               </Text>
             </View>
@@ -133,9 +137,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
           <TouchableOpacity
             onPress={() => onPressNavigation(ScreenEnum.AboutApp)}>
-            <View style={styles(colors).menuItem}>
+            <View style={styles(colors, isRTL).menuItem}>
               <AboutTheAppIcon />
-              <Text style={styles(colors).menuText}>
+              <Text style={styles(colors, isRTL).menuText}>
                 {t('general.aboutApp')}
               </Text>
             </View>
@@ -143,35 +147,37 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
           <TouchableOpacity
             onPress={() => onPressNavigation(ScreenEnum.AboutUs)}>
-            <View style={styles(colors).menuItem}>
+            <View style={styles(colors, isRTL).menuItem}>
               <AboutUsIcon />
-              <Text style={styles(colors).menuText}>
+              <Text style={styles(colors, isRTL).menuText}>
                 {t('general.aboutUs')}
               </Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => onMenuItemPress('Share App')}>
-            <View style={styles(colors).menuItem}>
+            <View style={styles(colors, isRTL).menuItem}>
               <ShareAppIcon />
-              <Text style={styles(colors).menuText}>{t('menu.shareApp')}</Text>
+              <Text style={styles(colors, isRTL).menuText}>
+                {t('menu.shareApp')}
+              </Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => onMenuItemPress('Security Key')}>
-            <View style={styles(colors).menuItem}>
+            <View style={styles(colors, isRTL).menuItem}>
               <SecurityKeyIcon />
-              <Text style={styles(colors).menuText}>
+              <Text style={styles(colors, isRTL).menuText}>
                 {t('menu.securityKey')}
               </Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={toggleSettings}>
-            <View style={styles(colors).menuItem}>
-              <View style={styles(colors).menuContent}>
+            <View style={styles(colors, isRTL).menuItem}>
+              <View style={styles(colors, isRTL).menuContent}>
                 <SettingsIcon />
-                <Text style={styles(colors).menuText}>
+                <Text style={styles(colors, isRTL).menuText}>
                   {t('menu.settings')}
                 </Text>
               </View>
@@ -184,11 +190,11 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
           {/* Settings Options */}
           {isSettingsOpen && (
-            <View style={styles(colors).settingsContainer}>
+            <View style={styles(colors, isRTL).settingsContainer}>
               {/* Dark Mode */}
-              <View style={styles(colors).settingItem}>
+              <View style={styles(colors, isRTL).settingItem}>
                 <DarkModeIcon />
-                <Text style={styles(colors).settingText}>
+                <Text style={styles(colors, isRTL).settingText}>
                   {t('menu.darkMode')}
                 </Text>
                 <Switch
@@ -205,14 +211,14 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
               </View>
 
               {/* Language */}
-              <View style={styles(colors).settingItem}>
+              <View style={styles(colors, isRTL).settingItem}>
                 <LanguageIcon />
-                <Text style={styles(colors).settingText}>
+                <Text style={styles(colors, isRTL).settingText}>
                   {t('menu.language')}
                 </Text>
                 <Switch
-                  value={isLanguageEnglish}
-                  onValueChange={value => setIsLanguageEnglish(value)}
+                  value={isRTL}
+                  onValueChange={() => toggleRTL(isRTL ? false : true)}
                   thumbColor={isRTL ? colors.mainPurple : colors.background}
                   trackColor={{
                     false: colors.gray,
@@ -225,8 +231,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         </View>
 
         {/* Privacy Policy Notice */}
-        <View style={styles(colors).privacyContainer}>
-          <TouchableOpacity style={styles(colors).iconContainer}>
+        <View style={styles(colors, isRTL).privacyContainer}>
+          <TouchableOpacity style={styles(colors, isRTL).iconContainer}>
             <PrivacyPolicyNoticeIcon />
           </TouchableOpacity>
           <Card
@@ -244,7 +250,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
   );
 };
 
-const styles = (colors: any) =>
+const styles = (colors: any, isRTL: boolean) =>
   StyleSheet.create({
     overlay: {
       flex: 1,
@@ -255,7 +261,7 @@ const styles = (colors: any) =>
       position: 'absolute',
       top: 0,
       bottom: 0,
-      left: 0,
+      [isRTL ? 'right' : 'left']: 0,
       width: '75%',
       backgroundColor: colors.background,
       padding: 20,
@@ -264,13 +270,15 @@ const styles = (colors: any) =>
       shadowOpacity: 0.5,
       shadowRadius: 10,
       elevation: 5,
-      borderTopRightRadius: 20,
-      borderBottomRightRadius: 20,
+      borderTopLeftRadius: !isRTL ? 0 : 20,
+      borderTopRightRadius: !isRTL ? 20 : 0,
+      borderBottomLeftRadius: !isRTL ? 0 : 20,
+      borderBottomRightRadius: !isRTL ? 20 : 0,
       borderWidth: 2,
       borderColor: colors.mainPurple,
     },
     titleContainer: {
-      flexDirection: 'row',
+      flexDirection: isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       marginBottom: 20,
     },
@@ -278,38 +286,43 @@ const styles = (colors: any) =>
       width: 40,
       height: 40,
       borderRadius: 20,
-      marginRight: 10,
+      marginRight: isRTL ? 0 : 10,
+      marginLeft: isRTL ? 10 : 0,
     },
     title: {
       fontSize: 18,
       fontWeight: 'bold',
       color: colors.text,
+      textAlign: isRTL ? 'right' : 'left',
     },
     menuItemsContainer: {
       flexGrow: 1,
     },
     menuContent: {
-      flexDirection: 'row',
+      flexDirection: isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       flex: 1,
     },
     menuItem: {
-      flexDirection: 'row',
+      flexDirection: isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       paddingVertical: 10,
     },
     menuText: {
       fontSize: 16,
-      marginLeft: 5,
+      marginLeft: isRTL ? 0 : 5,
+      marginRight: isRTL ? 5 : 0,
       color: colors.text,
+      textAlign: isRTL ? 'right' : 'left',
     },
     settingsContainer: {
-      paddingLeft: 10,
+      paddingLeft: isRTL ? 0 : 10,
+      paddingRight: isRTL ? 10 : 0,
       borderTopWidth: 1,
       borderColor: colors.mainLightPurple,
     },
     settingItem: {
-      flexDirection: 'row',
+      flexDirection: isRTL ? 'row-reverse' : 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingVertical: 10,
@@ -318,21 +331,20 @@ const styles = (colors: any) =>
     settingText: {
       fontSize: 16,
       flex: 1,
-      marginLeft: 10,
+      marginLeft: isRTL ? 0 : 10,
+      marginRight: isRTL ? 10 : 0,
       color: colors.text,
+      textAlign: isRTL ? 'right' : 'left',
     },
     privacyContainer: {
       padding: 10,
-      flexDirection: 'row',
+      flexDirection: isRTL ? 'row-reverse' : 'row',
       alignItems: 'center',
       marginTop: 20,
     },
     iconContainer: {
-      marginRight: 8,
-    },
-    privacyText: {
-      color: '#7D8792',
-      fontSize: 14,
+      marginRight: isRTL ? 0 : 8,
+      marginLeft: isRTL ? 8 : 0,
     },
   });
 

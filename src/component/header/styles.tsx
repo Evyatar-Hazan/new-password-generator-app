@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 
-const styles = (colors: any) =>
+const styles = (colors: any, isRTL: boolean) =>
   StyleSheet.create({
   headerContainer: {
-    flexDirection:  'row',
+    flexDirection: isRTL ? 'row-reverse' : 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: colors.mainLightPurple,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Animated, StyleSheet } from "react-native";
 import { useTheme } from "../../themes/ThemeContext";
 import { themes } from "../../themes/themes";
+import { useRTL } from '../../i18n/RTLContext';
 
 type FooterButton = {
   icon: React.FC;
@@ -16,10 +17,16 @@ type FooterProps = {
 const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => {
   const { theme } = useTheme();
   const colors = themes[theme];
-  const [focusedIndex, setFocusedIndex] = useState<number | null>(defaultFocusedIndex);
+  const { isRTL } = useRTL()
+  const [focusedIndex, setFocusedIndex] = useState<number>(defaultFocusedIndex);
   const [animations] = useState<Animated.Value[]>(
-    buttons.map(() => new Animated.Value(0))
+  (isRTL ? [...buttons].reverse() : buttons).map(() => new Animated.Value(0))
   );
+
+
+  useEffect(() => {
+    setFocusedIndex(buttons.length - 1 - focusedIndex)
+  }, [isRTL])
 
   useEffect(() => {
     if (focusedIndex !== null) {
@@ -40,7 +47,7 @@ const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => 
 
   return (
     <View style={styles(colors).footer}>
-      {buttons.map((button, index) => {
+      {(isRTL ? [...buttons].reverse() : buttons).map((button, index) => {
         const translateY = animations[index].interpolate({
           inputRange: [0, 1],
           outputRange: [0, -30],

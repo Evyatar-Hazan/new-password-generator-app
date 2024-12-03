@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { StyleSheet, Text, View, Linking, TextStyle, ViewStyle } from 'react-native';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
+import { useRTL } from '../../i18n/RTLContext';
 
 interface CardProps {
   dominantTitle?: string;
@@ -17,17 +18,18 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, children, dominantTitleStyles, titleStyles, contentStyles }) => {
   const { theme } = useTheme();
   const colors = themes[theme];
+  const {isRTL} = useRTL();
   const renderContent = () => {
     if (!content) return null;
 
     if (!links || links.length === 0) {
-      return <Text style={[styles(colors).content, contentStyles]}>{content}</Text>;
+      return <Text style={[styles(colors, isRTL).content, contentStyles]}>{content}</Text>;
     }
 
     const splitContent = content.split(/(\[link\d+\])/g);
 
     return (
-      <Text style={styles(colors).content}>
+      <Text style={styles(colors, isRTL).content}>
         {splitContent.map((part, index) => {
           const match = part.match(/\[link(\d+)\]/);
           if (match) {
@@ -37,7 +39,7 @@ const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, child
               return (
                 <Text
                   key={index}
-                  style={styles(colors).link}
+                  style={styles(colors, isRTL).link}
                   onPress={() => Linking.openURL(link.url)}
                 >
                   {link.text}
@@ -52,17 +54,17 @@ const Card: React.FC<CardProps> = ({ dominantTitle, title, content, links, child
   };
 
   return (
-    <View style={styles(colors).card}>
-      {dominantTitle && <Text style={[styles(colors).dominantTitle, dominantTitleStyles]}>{dominantTitle}</Text>}
-      {title && <Text style={[styles(colors).title, titleStyles]}>{title}</Text>}
+    <View style={styles(colors, isRTL).card}>
+      {dominantTitle && <Text style={[styles(colors, isRTL).dominantTitle, dominantTitleStyles]}>{dominantTitle}</Text>}
+      {title && <Text style={[styles(colors, isRTL).title, titleStyles]}>{title}</Text>}
       {renderContent()}
-      {children && <View style={styles(colors).childrenContainer}>{children}</View>}
+      {children && <View style={styles(colors, isRTL).childrenContainer}>{children}</View>}
     </View>
   );
 };
 
 
-const styles = (colors: any) =>
+const styles = (colors: any, isRTL: boolean) =>
   StyleSheet.create({
   card: {
     paddingLeft: 16,
@@ -74,18 +76,20 @@ const styles = (colors: any) =>
     fontWeight: 'bold',
     color: colors.text,
     marginBottom: 8,
+    textAlign: isRTL ? 'right': 'left',
   } as TextStyle,
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
     color: colors.text,
+    textAlign: isRTL ? 'right': 'left',
   } as TextStyle,
   content: {
     fontSize: 14,
     color: colors.text,
     lineHeight: 20,
-    textAlign: "justify",
+    textAlign: isRTL ? 'right': 'left',
   } as TextStyle,
   link: {
     color: colors.mainLightPurple,

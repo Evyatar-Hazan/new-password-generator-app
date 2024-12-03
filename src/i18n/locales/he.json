@@ -45,9 +45,8 @@
     },
     "internetConnection": {
       "description": "ללא חיבור לאינטרנט:",
-      "details": [
+      "details":
         "אפליקציית Password-Generator אינה דורשת חיבור לאינטרנט כדי לתפקד. היא פועלת במצב לא מקוון לחלוטין ואינה מתקשרת עם שרתים או שירותים חיצוניים."
-      ]
     },
     "advertising": {
       "description": "פרסום:",

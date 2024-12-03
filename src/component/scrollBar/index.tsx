@@ -8,6 +8,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
+import { useRTL } from '../../i18n/RTLContext';
 
 interface scrollBarProps {
   children: React.ReactNode[];
@@ -19,6 +20,7 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   const [containerHeight, setContainerHeight] = useState(1);
   const { theme } = useTheme();
   const colors = themes[theme];
+  const {isRTL} = useRTL();
 
   const handleContentSizeChange = (width: number, height: number) => {
     setContentHeight(height);
@@ -37,10 +39,10 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   });
 
   return (
-    <View style={styles(colors).container} onLayout={handleLayout}>
+    <View style={styles(colors, isRTL).container} onLayout={handleLayout}>
       <Animated.ScrollView
-        style={styles(colors).scrollView}
-        contentContainerStyle={styles(colors).scrollViewContent}
+        style={styles(colors, isRTL).scrollView}
+        contentContainerStyle={styles(colors, isRTL).scrollViewContent}
         showsVerticalScrollIndicator={false}
         onContentSizeChange={handleContentSizeChange}
         onScroll={Animated.event(
@@ -51,10 +53,10 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
       >
         {children}
       </Animated.ScrollView>
-      <View style={styles(colors).scrollBarContainer}>
+      <View style={styles(colors, isRTL).scrollBarContainer}>
         <Animated.View
           style={[
-            styles(colors).scrollBar,
+            styles(colors, isRTL).scrollBar,
             {
               height: scrollBarHeight,
             },
@@ -62,7 +64,7 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
         >
           <LinearGradient
             colors={[colors.mainLightPurple, colors.mainPurple]}
-            style={styles(colors).gradient}
+            style={styles(colors, isRTL).gradient}
           />
         </Animated.View>
       </View>
@@ -70,11 +72,11 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   );
 };
 
-const styles = (colors: any) =>
+const styles = (colors: any, isRTL: boolean) =>
   StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: isRTL ? 'row-reverse' : 'row',
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 32,

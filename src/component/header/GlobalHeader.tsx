@@ -33,23 +33,15 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   };
 
   return (
-    <View style={styles(colors).headerContainer}>
-      <View style={styles(colors).sideContainer}>
-        {isRTL ? (
-          showBackButton && <BackIcon onPress={() => navigation.goBack()} />
-        ) : (
-          <MenuIcon onPress={toggleMenu} />
-        )}
+    <View style={styles(colors, isRTL).headerContainer}>
+      <View style={styles(colors, isRTL).sideContainer}>
+        <MenuIcon onPress={toggleMenu} />
       </View>
-      <View style={styles(colors).headerTitleContainer}>
-        <Text style={styles(colors).headerTitle}>{title}</Text>
+      <View style={styles(colors, isRTL).headerTitleContainer}>
+        <Text style={styles(colors, isRTL).headerTitle}>{title}</Text>
       </View>
-      <View style={styles(colors).sideContainer}>
-        {isRTL ? (
-          <MenuIcon onPress={toggleMenu} />
-        ) : (
-          showBackButton && <BackIcon onPress={() => navigation.goBack()} />
-        )}
+      <View style={styles(colors, isRTL).sideContainer}>
+        {showBackButton && <BackIcon onPress={() => navigation.goBack()} />}
       </View>
       <SidebarMenu
         isVisible={isMenuVisible}
