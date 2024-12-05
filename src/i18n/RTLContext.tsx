@@ -51,6 +51,7 @@ export const RTLProvider: React.FC<RTLProviderProps> = ({ children }) => {
           handleLanguageChange(deviceLanguage);
         }
       }
+      I18nManager.forceRTL(false);
     };
 
     loadSettings();

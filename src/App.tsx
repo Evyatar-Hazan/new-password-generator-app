@@ -26,14 +26,10 @@ const App: React.FC = () => {
     loadApp();
   }, [currentLanguage, i18n]);
 
-  if (isLoading) {
-    return <SplashScreen />;
-  }
-
   return (
     <ThemeProvider>
       <RTLProvider>
-        <Navigation setCurrentLanguage={setCurrentLanguage} />
+        {!isLoading ? <Navigation setCurrentLanguage={setCurrentLanguage} /> : <SplashScreen />}
       </RTLProvider>
     </ThemeProvider>
   );
