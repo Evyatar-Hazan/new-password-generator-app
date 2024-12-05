@@ -30,6 +30,7 @@ import Card from '../card/Card';
 import {useTheme} from '../../themes/ThemeContext';
 import {themes} from '../../themes/themes';
 import {useRTL} from '../../i18n/RTLContext';
+import MenuItem from './menuItem';
 
 type SidebarMenuNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -95,6 +96,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
     setTheme(!isDarkMode ? 'dark' : 'light');
   };
 
+  const toggleLen = () => {
+    toggleRTL(!isRTL);
+  };
+
   const rotationInterpolate = rotation.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
@@ -123,111 +128,111 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           </Text>
         </View>
 
-        {/* Menu Items */}
         <View style={styles(colors, isRTL).menuItemsContainer}>
-          <TouchableOpacity
-            onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}>
-            <View style={styles(colors, isRTL).menuItem}>
-              <PrivacyPolicyIcon />
-              <Text style={styles(colors, isRTL).menuText}>
-                {t('general.privacyPolicy')}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <MenuItem
+            icon={<PrivacyPolicyIcon />}
+            text={t('general.privacyPolicy')}
+            onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}
+            isRTL={isRTL}
+            textColor={colors.text}
+          />
 
-          <TouchableOpacity
-            onPress={() => onPressNavigation(ScreenEnum.AboutApp)}>
-            <View style={styles(colors, isRTL).menuItem}>
-              <AboutTheAppIcon />
-              <Text style={styles(colors, isRTL).menuText}>
-                {t('general.aboutApp')}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <MenuItem
+            icon={<AboutTheAppIcon />}
+            text={t('general.aboutApp')}
+            onPress={() => onPressNavigation(ScreenEnum.AboutApp)}
+            isRTL={isRTL}
+            textColor={colors.text}
+          />
 
-          <TouchableOpacity
-            onPress={() => onPressNavigation(ScreenEnum.AboutUs)}>
-            <View style={styles(colors, isRTL).menuItem}>
-              <AboutUsIcon />
-              <Text style={styles(colors, isRTL).menuText}>
-                {t('general.aboutUs')}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <MenuItem
+            icon={<AboutUsIcon />}
+            text={t('general.aboutUs')}
+            onPress={() => onPressNavigation(ScreenEnum.AboutUs)}
+            isRTL={isRTL}
+            textColor={colors.text}
+          />
 
-          <TouchableOpacity onPress={() => onMenuItemPress('Share App')}>
-            <View style={styles(colors, isRTL).menuItem}>
-              <ShareAppIcon />
-              <Text style={styles(colors, isRTL).menuText}>
-                {t('menu.shareApp')}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <MenuItem
+            icon={<ShareAppIcon />}
+            text={t('menu.shareApp')}
+            onPress={() => onMenuItemPress('Share App')}
+            isRTL={isRTL}
+            textColor={colors.text}
+          />
 
-          <TouchableOpacity onPress={() => onMenuItemPress('Security Key')}>
-            <View style={styles(colors, isRTL).menuItem}>
-              <SecurityKeyIcon />
-              <Text style={styles(colors, isRTL).menuText}>
-                {t('menu.securityKey')}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <MenuItem
+            icon={<SecurityKeyIcon />}
+            text={t('menu.securityKey')}
+            onPress={() => onMenuItemPress('Security Key')}
+            isRTL={isRTL}
+            textColor={colors.text}
+          />
 
-          <TouchableOpacity onPress={toggleSettings}>
-            <View style={styles(colors, isRTL).menuItem}>
-              <View style={styles(colors, isRTL).menuContent}>
-                <SettingsIcon />
-                <Text style={styles(colors, isRTL).menuText}>
-                  {t('menu.settings')}
-                </Text>
-              </View>
+          <MenuItem
+            icon={<SettingsIcon />}
+            secondaryIcon={
               <Animated.View
                 style={{transform: [{rotate: rotationInterpolate}]}}>
                 <DownIcon />
               </Animated.View>
-            </View>
-          </TouchableOpacity>
+            }
+            text={t('menu.settings')}
+            onPress={toggleSettings}
+            isRTL={isRTL}
+            textColor={colors.text}>
+            {isSettingsOpen && (
+              <>
+                <View style={styles(colors, isRTL).settingsContainer}>
+                  {/* Dark Mode */}
+                  <MenuItem
+                    icon={<DarkModeIcon />}
+                    text={t('menu.darkMode')}
+                    isRTL={isRTL}
+                    textColor={colors.text}
+                    onPress={toggleDarkMode}
+                    switchIcon={
+                      <Switch
+                        value={theme === 'light' ? false : true}
+                        onValueChange={toggleDarkMode}
+                        thumbColor={
+                          theme === 'light'
+                            ? colors.background
+                            : colors.mainPurple
+                        }
+                        trackColor={{
+                          false: colors.gray,
+                          true: colors.mainLightPurple,
+                        }}
+                      />
+                    }
+                  />
 
-          {/* Settings Options */}
-          {isSettingsOpen && (
-            <View style={styles(colors, isRTL).settingsContainer}>
-              {/* Dark Mode */}
-              <View style={styles(colors, isRTL).settingItem}>
-                <DarkModeIcon />
-                <Text style={styles(colors, isRTL).settingText}>
-                  {t('menu.darkMode')}
-                </Text>
-                <Switch
-                  value={theme === 'light' ? false : true}
-                  onValueChange={toggleDarkMode}
-                  thumbColor={
-                    theme === 'light' ? colors.background : colors.mainPurple
-                  }
-                  trackColor={{
-                    false: colors.gray,
-                    true: colors.mainLightPurple,
-                  }}
-                />
-              </View>
-
-              {/* Language */}
-              <View style={styles(colors, isRTL).settingItem}>
-                <LanguageIcon />
-                <Text style={styles(colors, isRTL).settingText}>
-                  {t('menu.language')}
-                </Text>
-                <Switch
-                  value={isRTL}
-                  onValueChange={() => toggleRTL(isRTL ? false : true)}
-                  thumbColor={isRTL ? colors.mainPurple : colors.background}
-                  trackColor={{
-                    false: colors.gray,
-                    true: colors.mainLightPurple,
-                  }}
-                />
-              </View>
-            </View>
-          )}
+                  {/* Language */}
+                  <MenuItem
+                    icon={<LanguageIcon />}
+                    text={t('menu.language')}
+                    isRTL={isRTL}
+                    textColor={colors.text}
+                    onPress={toggleLen}
+                    switchIcon={
+                      <Switch
+                        value={isRTL}
+                        onValueChange={toggleLen}
+                        thumbColor={
+                          isRTL ? colors.mainPurple : colors.background
+                        }
+                        trackColor={{
+                          false: colors.gray,
+                          true: colors.mainLightPurple,
+                        }}
+                      />
+                    }
+                  />
+                </View>
+              </>
+            )}
+          </MenuItem>
         </View>
 
         {/* Privacy Policy Notice */}
@@ -320,6 +325,10 @@ const styles = (colors: any, isRTL: boolean) =>
       paddingRight: isRTL ? 10 : 0,
       borderTopWidth: 1,
       borderColor: colors.mainLightPurple,
+      borderRadius: 8,
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      marginTop: 8,
     },
     settingItem: {
       flexDirection: isRTL ? 'row-reverse' : 'row',

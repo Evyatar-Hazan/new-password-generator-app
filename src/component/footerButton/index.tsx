@@ -5,7 +5,7 @@ import { themes } from "../../themes/themes";
 import { useRTL } from '../../i18n/RTLContext';
 
 type FooterButton = {
-  icon: React.FC;
+  icon:  React.FC<{ onPress: () => void }>; 
   onPress: () => void;
 };
 
@@ -76,7 +76,7 @@ const Footer: React.FC<FooterProps> = ({ buttons, defaultFocusedIndex = 0 }) => 
               ]}
             >
               <TouchableOpacity onPress={() => handlePress(index, button.onPress)}>
-                <button.icon />
+                <button.icon onPress={() => handlePress(index, button.onPress)}/>
               </TouchableOpacity>
             </Animated.View>
           </Animated.View>
