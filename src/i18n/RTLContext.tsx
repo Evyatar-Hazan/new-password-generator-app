@@ -7,6 +7,8 @@ import React, {
   ReactNode,
 } from 'react';
 import { I18nManager } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Localization from 'react-native-localize';
 import i18n from '../i18n/i18n';
 
 interface RTLContextProps {
@@ -27,14 +29,32 @@ export const RTLProvider: React.FC<RTLProviderProps> = ({ children }) => {
   const [isRTL, setIsRTL] = useState(I18nManager.isRTL);
 
   const handleLanguageChange = useCallback(
-    (lng: string) => {
+    async (lng: string) => {
       const rtl = lng === 'he';
       setIsRTL(rtl);
+      await AsyncStorage.setItem('language', lng);
     },
     []
   );
 
   useEffect(() => {
+    const loadSettings = async () => {
+      const savedLanguage = await AsyncStorage.getItem('language');
+      if (savedLanguage) {
+        i18n.changeLanguage(savedLanguage);
+        handleLanguageChange(savedLanguage);
+      } else {
+        const deviceLocales = Localization.getLocales();
+        if (deviceLocales && deviceLocales.length > 0) {
+          const deviceLanguage = deviceLocales[0].languageTag.split('-')[0];
+          i18n.changeLanguage(deviceLanguage);
+          handleLanguageChange(deviceLanguage);
+        }
+      }
+    };
+
+    loadSettings();
+
     const onLanguageChanged = (lng: string) => {
       const currentRTL = lng === 'he';
       if (currentRTL !== isRTL) {

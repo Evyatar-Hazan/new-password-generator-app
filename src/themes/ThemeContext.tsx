@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Appearance } from 'react-native';
 
 type ThemeContextType = {
   theme: 'light' | 'dark';
@@ -8,7 +10,25 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setThemeState] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    const loadTheme = async () => {
+      const storedTheme = await AsyncStorage.getItem('theme');
+      if (storedTheme === 'light' || storedTheme === 'dark') {
+        setThemeState(storedTheme);
+      } else {
+        const defaultTheme = Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
+        setThemeState(defaultTheme);
+      }
+    };
+    loadTheme();
+  }, []);
+
+  const setTheme = async (newTheme: 'light' | 'dark') => {
+    setThemeState(newTheme);
+    await AsyncStorage.setItem('theme', newTheme);
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
