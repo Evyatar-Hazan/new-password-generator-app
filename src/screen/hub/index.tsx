@@ -83,6 +83,7 @@ const Hub: React.FC<HubProps> = ({ navigation, route }) => {
         ))}
       </View>
       <Footer
+        defaultFocusedIndex={1}
         buttons={[
           { icon: FourIcon, onPress: () => setNumCharacters(4) },
           { icon: EightIcon, onPress: () => setNumCharacters(8) },

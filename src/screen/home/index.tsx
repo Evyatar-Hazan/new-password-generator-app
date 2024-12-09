@@ -10,13 +10,13 @@ import {
   ScrollView,
 } from 'react-native';
 import FrameInput from '../../component/frameInput';
-import BackIcon from '../../assets/svg/back';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
+import EnterIcon from '../../assets/svg/enterIcon';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Home>;
 
@@ -28,7 +28,9 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
   const [Keyword2, setKeyword2] = useState('');
 
   const onPressGenerator = () => {
-    navigation.navigate(ScreenEnum.Hub, {Keyword1, Keyword2});
+    if (Keyword1.length > 0 && Keyword2.length > 0) {
+      navigation.navigate(ScreenEnum.Hub, {Keyword1, Keyword2});
+    }
   };
 
   return (
@@ -71,8 +73,9 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
       <Footer
         buttons={[
           {
-            icon: BackIcon,
+            icon: EnterIcon,
             onPress: () => onPressGenerator(),
+            isEnabled: Keyword1.length > 0 && Keyword2.length > 0,
           },
         ]}
         />
