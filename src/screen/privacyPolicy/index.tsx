@@ -22,6 +22,7 @@ const PrivacyPolicy: React.FC<{
   const {t} = useTranslation();
   const {theme} = useTheme();
   const colors = themes[theme];
+  console.log("🚀 ~ colors:", colors)
 
   return (
     <View style={styles(colors).container}>
