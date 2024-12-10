@@ -12,18 +12,6 @@ import {
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
 import titleIcon from '../../assets/images/appIcon/appIcon.jpeg';
-import {
-  AboutTheAppIcon,
-  AboutUsIcon,
-  DarkModeIcon,
-  DownIcon,
-  LanguageIcon,
-  PrivacyPolicyIcon,
-  PrivacyPolicyNoticeIcon,
-  SecurityKeyIcon,
-  SettingsIcon,
-  ShareAppIcon,
-} from '../../assets/svg/menuButton';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Card from '../card/Card';
@@ -31,6 +19,8 @@ import {useTheme} from '../../themes/ThemeContext';
 import {themes} from '../../themes/themes';
 import {useRTL} from '../../i18n/RTLContext';
 import MenuItem from './menuItem';
+import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+import RenderIcon from '../../assets/svg/icon';
 
 type SidebarMenuNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -130,7 +120,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
         <View style={styles(colors, isRTL).menuItemsContainer}>
           <MenuItem
-            icon={<PrivacyPolicyIcon />}
+            icon={
+              <RenderIcon
+                name={IconsEnum.PrivacyPolicy}
+                onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}
+              />
+            }
             text={t('general.privacyPolicy')}
             onPress={() => onPressNavigation(ScreenEnum.PrivacyPolicy)}
             isRTL={isRTL}
@@ -138,7 +133,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
 
           <MenuItem
-            icon={<AboutTheAppIcon />}
+            icon={
+              <RenderIcon
+                name={IconsEnum.AboutTheApp}
+                onPress={() => onPressNavigation(ScreenEnum.AboutApp)}
+              />
+            }
             text={t('general.aboutApp')}
             onPress={() => onPressNavigation(ScreenEnum.AboutApp)}
             isRTL={isRTL}
@@ -146,7 +146,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
 
           <MenuItem
-            icon={<AboutUsIcon />}
+            icon={
+              <RenderIcon
+                name={IconsEnum.AboutUs}
+                onPress={() => onPressNavigation(ScreenEnum.AboutUs)}
+              />
+            }
             text={t('general.aboutUs')}
             onPress={() => onPressNavigation(ScreenEnum.AboutUs)}
             isRTL={isRTL}
@@ -154,7 +159,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
 
           <MenuItem
-            icon={<ShareAppIcon />}
+            icon={
+              <RenderIcon
+                name={IconsEnum.ShareApp}
+                onPress={() => onMenuItemPress('Share App')}
+              />
+            }
             text={t('menu.shareApp')}
             onPress={() => onMenuItemPress('Share App')}
             isRTL={isRTL}
@@ -162,7 +172,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
 
           <MenuItem
-            icon={<SecurityKeyIcon />}
+            icon={
+              <RenderIcon
+                name={IconsEnum.SecurityKey}
+                onPress={() => onMenuItemPress('Security Key')}
+              />
+            }
             text={t('menu.securityKey')}
             onPress={() => onMenuItemPress('Security Key')}
             isRTL={isRTL}
@@ -170,11 +185,13 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
           />
 
           <MenuItem
-            icon={<SettingsIcon />}
+            icon={
+              <RenderIcon name={IconsEnum.Settings} onPress={toggleSettings} />
+            }
             secondaryIcon={
               <Animated.View
                 style={{transform: [{rotate: rotationInterpolate}]}}>
-                <DownIcon />
+                {<RenderIcon name={IconsEnum.Down} onPress={toggleSettings} />}
               </Animated.View>
             }
             text={t('menu.settings')}
@@ -186,7 +203,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                 <View style={styles(colors, isRTL).settingsContainer}>
                   {/* Dark Mode */}
                   <MenuItem
-                    icon={<DarkModeIcon />}
+                    icon={
+                      <RenderIcon
+                        name={IconsEnum.DarkMode}
+                        onPress={toggleDarkMode}
+                      />
+                    }
                     text={t('menu.darkMode')}
                     isRTL={isRTL}
                     textColor={colors.text}
@@ -210,7 +232,12 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
 
                   {/* Language */}
                   <MenuItem
-                    icon={<LanguageIcon />}
+                    icon={
+                      <RenderIcon
+                        name={IconsEnum.Language}
+                        onPress={toggleLen}
+                      />
+                    }
                     text={t('menu.language')}
                     isRTL={isRTL}
                     textColor={colors.text}
@@ -238,7 +265,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         {/* Privacy Policy Notice */}
         <View style={styles(colors, isRTL).privacyContainer}>
           <TouchableOpacity style={styles(colors, isRTL).iconContainer}>
-            <PrivacyPolicyNoticeIcon />
+            {<RenderIcon name={IconsEnum.PrivacyPolicyNotice} />}
           </TouchableOpacity>
           <Card
             content={t('menu.privacyNotice')}

@@ -5,9 +5,8 @@ import {themes} from '../../themes/themes';
 import {useRTL} from '../../i18n/RTLContext';
 
 type FooterButton = {
-  icon: React.FC<{onPress: () => void; isEnabled?: boolean}>;
+  icon: React.FC<{onPress: () => void}>;
   onPress: () => void;
-  isEnabled?: boolean;
 };
 
 type FooterProps = {
@@ -45,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({buttons, defaultFocusedIndex = 0}) => {
     <View style={styles(colors).footer}>
       {(isRTL ? [...buttons].reverse() : buttons).map((button, index) => {
         const actualIndex = isRTL ? buttons.length - 1 - index : index;
-        
+
         const translateY = animations[actualIndex].interpolate({
           inputRange: [0, 1],
           outputRange: [0, -30],
@@ -75,7 +74,6 @@ const Footer: React.FC<FooterProps> = ({buttons, defaultFocusedIndex = 0}) => {
                 onPress={() => handlePress(actualIndex, button.onPress)}>
                 <button.icon
                   onPress={() => handlePress(actualIndex, button.onPress)}
-                  isEnabled={button.isEnabled}
                 />
               </TouchableOpacity>
             </Animated.View>

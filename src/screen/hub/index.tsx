@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  View,
-  StyleSheet,
-} from 'react-native';
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {View, StyleSheet, Text} from 'react-native';
 import FrameInput from '../../component/frameInput';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList, ScreenEnum } from '../../navigation';
-import { RouteProp } from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList, ScreenEnum} from '../../navigation';
+import {RouteProp} from '@react-navigation/native';
 import {
   extractLetters,
   combineNumbersAndLetters,
@@ -15,13 +12,11 @@ import {
   transformToSign,
   extractNumbers,
 } from 'password-generator-npm';
-import FourIcon from '../../assets/svg/footer/fourIcon';
-import EightIcon from '../../assets/svg/footer/eightIcon';
-import TwelveIcon from '../../assets/svg/footer/twelveIcon';
-import PasswordLengthIcon from '../../assets/svg/footer/passwordLengthIcon';
 import Footer from '../../component/footerButton';
-import { useTheme } from '../../themes/ThemeContext';
-import { themes } from '../../themes/themes';
+import {useTheme} from '../../themes/ThemeContext';
+import {themes} from '../../themes/themes';
+import RenderIcon from '../../assets/svg/icon';
+import {IconsEnum} from '../../assets/svg/icon/iconsMap';
 
 type HubScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -33,13 +28,17 @@ type HubProps = {
   navigation: HubScreenNavigationProp;
   route: HubScreenRouteProp;
 };
-const Hub: React.FC<HubProps> = ({ navigation, route }) => {
-  const { t } = useTranslation();
-  const { theme } = useTheme();
+const Hub: React.FC<HubProps> = ({navigation, route}) => {
+  const {t} = useTranslation();
+  const {theme} = useTheme();
   const colors = themes[theme];
-  const { Keyword1, Keyword2 } = route.params || {};
+  const {Keyword1, Keyword2} = route.params || {};
   const KeywordArr = [Keyword1 || '', Keyword2 || ''];
   const [numCharacters, setNumCharacters] = useState<number>(8);
+
+  const NumButton = (num: number) => {
+    return <Text style={styles(colors).numButton}>{num}</Text>;
+  };
 
   const inputConfigs = [
     {
@@ -85,11 +84,14 @@ const Hub: React.FC<HubProps> = ({ navigation, route }) => {
       <Footer
         defaultFocusedIndex={1}
         buttons={[
-          { icon: FourIcon, onPress: () => setNumCharacters(4) },
-          { icon: EightIcon, onPress: () => setNumCharacters(8) },
-          { icon: TwelveIcon, onPress: () => setNumCharacters(12) },
+          {icon: () => NumButton(4), onPress: () => setNumCharacters(4)},
           {
-            icon: PasswordLengthIcon,
+            icon: () => NumButton(8),
+            onPress: () => setNumCharacters(8),
+          },
+          {icon: () => NumButton(12), onPress: () => setNumCharacters(12)},
+          {
+            icon: () => <RenderIcon name={IconsEnum.PasswordLength} />,
             onPress: () => console.log('Define a meaningful action'),
           },
         ]}
@@ -106,6 +108,13 @@ const styles = (colors: any) =>
       padding: 20,
       backgroundColor: colors.background,
       paddingTop: '10%',
+    },
+    numButton: {
+      textAlign: 'center',
+      fontSize: 30,
+      fontWeight: 'bold',
+      fontFamily: 'Roboto',
+      color: colors.text,
     },
   });
 

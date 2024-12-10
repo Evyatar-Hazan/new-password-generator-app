@@ -4,7 +4,6 @@ import {StyleSheet, View} from 'react-native';
 import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import ScrollBar from '../../component/scrollBar';
-import BackIcon from '../../assets/svg/back';
 import FrameInput from '../../component/frameInput';
 import {
   extractLetters,
@@ -15,8 +14,10 @@ import {
 } from 'password-generator-npm';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
-import { useTheme } from '../../themes/ThemeContext';
-import { themes } from '../../themes/themes';
+import {useTheme} from '../../themes/ThemeContext';
+import {themes} from '../../themes/themes';
+import RenderIcon from '../../assets/svg/icon';
+import {IconsEnum} from '../../assets/svg/icon/iconsMap';
 
 type AboutAppScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -27,7 +28,7 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
   navigation,
 }) => {
   const {t} = useTranslation();
-  const { theme } = useTheme();
+  const {theme} = useTheme();
   const colors = themes[theme];
   const KeywordArr = [
     t('aboutApp.exampleUsage.personalWord.details'),
@@ -112,21 +113,27 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
       <Footer
         buttons={[
           {
-            icon: BackIcon,
+            icon: () => (
+              <RenderIcon
+                name={IconsEnum.Back}
+                onPress={() => navigation.goBack()}
+                rtl
+              />
+            ),
             onPress: () => navigation.goBack(),
           },
         ]}
-        />
+      />
     </View>
   );
 };
 
 const styles = (colors: any) =>
   StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background, 
-  },
-});
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+  });
 
 export default AboutApp;

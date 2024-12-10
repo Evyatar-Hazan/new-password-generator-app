@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import MenuIcon from '../../assets/svg/menu';
-import BackIcon from '../../assets/svg/back';
-import { useRTL } from '../../i18n/RTLContext';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
+import {useRTL} from '../../i18n/RTLContext';
 import SidebarMenu from '../sidebarMenu';
-import { useTheme } from '../../themes/ThemeContext';
-import { themes } from '../../themes/themes';
+import {useTheme} from '../../themes/ThemeContext';
+import {themes} from '../../themes/themes';
 import styles from './styles';
+import RenderIcon from '../../assets/svg/icon';
+import {IconsEnum} from '../../assets/svg/icon/iconsMap';
 
 interface GlobalHeaderProps {
   title: string;
@@ -20,9 +20,9 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   navigation,
 }) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
-  const { theme } = useTheme();
+  const {theme} = useTheme();
   const colors = themes[theme];
-  const { isRTL } = useRTL();
+  const {isRTL} = useRTL();
 
   const toggleMenu = () => {
     setMenuVisible(!isMenuVisible);
@@ -35,13 +35,19 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   return (
     <View style={styles(colors, isRTL).headerContainer}>
       <View style={styles(colors, isRTL).sideContainer}>
-        <MenuIcon onPress={toggleMenu} />
+        <RenderIcon name={IconsEnum.Menu} onPress={toggleMenu} />
       </View>
       <View style={styles(colors, isRTL).headerTitleContainer}>
         <Text style={styles(colors, isRTL).headerTitle}>{title}</Text>
       </View>
       <View style={styles(colors, isRTL).sideContainer}>
-        {showBackButton && <BackIcon onPress={() => navigation.goBack()} />}
+        {showBackButton && (
+          <RenderIcon
+            name={IconsEnum.Back}
+            onPress={() => navigation.goBack()}
+            rtl
+          />
+        )}
       </View>
       <SidebarMenu
         isVisible={isMenuVisible}

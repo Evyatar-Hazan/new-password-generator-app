@@ -14,21 +14,29 @@ import {RootStackParamList, ScreenEnum} from '../../navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Card from '../../component/card/Card';
 import Footer from '../../component/footerButton';
-import { useTheme } from '../../themes/ThemeContext';
-import { themes } from '../../themes/themes';
-import EnterIcon from '../../assets/svg/enterIcon';
+import {useTheme} from '../../themes/ThemeContext';
+import {themes} from '../../themes/themes';
+import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+import RenderIcon from '../../assets/svg/icon';
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, ScreenEnum.Home>;
+type HomeScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  ScreenEnum.Home
+>;
 
-const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) => {
-  const { theme } = useTheme();
+const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({
+  navigation,
+}) => {
+  const {theme} = useTheme();
   const colors = themes[theme];
   const {t} = useTranslation();
   const [Keyword1, setKeyword1] = useState('');
   const [Keyword2, setKeyword2] = useState('');
 
+  const isActive = Keyword1.length > 0 && Keyword2.length > 0;
+
   const onPressGenerator = () => {
-    if (Keyword1.length > 0 && Keyword2.length > 0) {
+    if (isActive) {
       navigation.navigate(ScreenEnum.Hub, {Keyword1, Keyword2});
     }
   };
@@ -40,9 +48,7 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
-            contentContainerStyle={[
-              styles(colors).innerContainer,
-            ]}
+            contentContainerStyle={[styles(colors).innerContainer]}
             keyboardShouldPersistTaps="handled">
             <Card
               dominantTitle={t('home.subTitle')}
@@ -73,42 +79,48 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({navigation}) =>
       <Footer
         buttons={[
           {
-            icon: EnterIcon,
+            icon: () => (
+              <RenderIcon
+                name={
+                  isActive ? IconsEnum.ActiveEnter : IconsEnum.DisabledEnter
+                }
+                onPress={onPressGenerator}
+              />
+            ),
             onPress: () => onPressGenerator(),
-            isEnabled: Keyword1.length > 0 && Keyword2.length > 0,
           },
         ]}
-        />
+      />
     </View>
   );
 };
 
 const styles = (colors: any) =>
   StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background, 
-  },
-  contentContainer: {
-    flex: 1,
-  },
-  innerContainer: {
-    flexGrow: 1,
-    justifyContent: 'space-between',
-    paddingTop: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-  },
-  keyboardVisibleContainer: {
-    paddingBottom: 20, 
-  },
-  inputContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingBottom: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-  },
-});
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    contentContainer: {
+      flex: 1,
+    },
+    innerContainer: {
+      flexGrow: 1,
+      justifyContent: 'space-between',
+      paddingTop: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
+    },
+    keyboardVisibleContainer: {
+      paddingBottom: 20,
+    },
+    inputContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      paddingBottom: 16,
+      paddingLeft: 16,
+      paddingRight: 16,
+    },
+  });
 
 export default Home;
