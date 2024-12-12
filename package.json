@@ -11,7 +11,8 @@
     "release-apk": "cd android/ && ./gradlew app:assembleRelease && cd ..",
     "release-aab": "cd android/ && ./gradlew bundleRelease && cd ..",
     "clean": "cd android/ && ./gradlew clean && cd ..",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "tSort": "node -p \"require('./scripts/tSort.js');\" && prettier --write \"src/i18n/**/*.json\""
   },
   "dependencies": {
     "@expo-google-fonts/righteous": "^0.2.3",
@@ -71,7 +72,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsc --noEmit && yarn tSort && git add -u src/i18n/\\* && lint-staged"
     }
   },
   "lint-staged": {
