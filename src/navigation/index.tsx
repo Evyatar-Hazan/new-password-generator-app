@@ -1,21 +1,20 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
-import GlobalHeader from '../component/header/GlobalHeader';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
-import Home from '../screen/home';
-import LanguageButton from '../component/LanguageButton/LanguageButton';
-import Hub from '../screen/hub';
-import PrivacyPolicy from '../screen/privacyPolicy';
-import AboutApp from '../screen/aboutApp';
-import AboutUs from '../screen/aboutUs';
+
+import GlobalHeader from '../component/header/GlobalHeader';
+import AboutAppScreen from '../screen/aboutApp';
+import AboutUsScreen from '../screen/aboutUs';
+import HomeScreen from '../screen/home';
+import HubScreen from '../screen/hub';
+import PrivacyPolicyScreen from '../screen/privacyPolicy';
 import { useTheme } from '../themes/ThemeContext';
 import { themes } from '../themes/themes';
 
 export type RootStackParamList = {
   Home: undefined;
-  Hub: {Keyword1: string, Keyword2: string};
-  LanguageButton: undefined;
+  Hub: { Keyword1: string; Keyword2: string };
   PrivacyPolicy: undefined;
   AboutApp: undefined;
   AboutUs: undefined;
@@ -24,75 +23,75 @@ export type RootStackParamList = {
 export enum ScreenEnum {
   Home = 'Home',
   Hub = 'Hub',
-  LanguageButton = 'LanguageButton',
   PrivacyPolicy = 'PrivacyPolicy',
   AboutApp = 'AboutApp',
-  AboutUs = 'AboutUs'
-};
+  AboutUs = 'AboutUs',
+}
 
-  type ScreenNavigationProp = StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
+export type ScreenEnumType = keyof RootStackParamList;
+
+export type ScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  keyof RootStackParamList
+>;
 
 interface ScreenOptionsProps {
   navigation: ScreenNavigationProp;
 }
 
-
 const Stack = createStackNavigator<RootStackParamList>();
 
-const createScreenOptions = (titleKey: string, showBackButton = false) => {
-  return ({ navigation }: ScreenOptionsProps) => ({
-    header: () => <GlobalHeader title={titleKey} navigation={navigation} showBackButton={showBackButton} />,
+const createScreenOptions =
+  (titleKey: string, showBackButton = false) =>
+  ({ navigation }: ScreenOptionsProps) => ({
+    header: () => (
+      <GlobalHeader
+        title={titleKey}
+        navigation={navigation}
+        showBackButton={showBackButton}
+      />
+    ),
   });
-};
 
-export interface NavigationProps {
-  setCurrentLanguage: (language: string) => void;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ setCurrentLanguage }) => {
+const Navigation = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const colors = themes[theme];
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ScreenEnum.Home}
-      screenOptions={{
-        cardStyle: {
-          backgroundColor: colors.background,
-        },
-      }}>
+      <Stack.Navigator
+        initialRouteName={ScreenEnum.Home}
+        screenOptions={{
+          cardStyle: {
+            backgroundColor: colors.background,
+          },
+        }}>
         <Stack.Screen
           name={ScreenEnum.Home}
-          component={Home}
+          component={HomeScreen}
           options={createScreenOptions(t('general.appName'))}
         />
         <Stack.Screen
           name={ScreenEnum.Hub}
-          component={Hub}
+          component={HubScreen}
           options={createScreenOptions(t('general.appName'), true)}
         />
         <Stack.Screen
-          name={ScreenEnum.PrivacyPolicy}  
-          component={PrivacyPolicy}
+          name={ScreenEnum.PrivacyPolicy}
+          component={PrivacyPolicyScreen}
           options={createScreenOptions(t('general.privacyPolicy'), true)}
         />
         <Stack.Screen
           name={ScreenEnum.AboutApp}
-          component={AboutApp}
+          component={AboutAppScreen}
           options={createScreenOptions(t('general.aboutApp'), true)}
         />
         <Stack.Screen
           name={ScreenEnum.AboutUs}
-          component={AboutUs}
+          component={AboutUsScreen}
           options={createScreenOptions(t('general.aboutUs'), true)}
         />
-        {/* Uncomment and implement the LanguageButton screen if needed */}
-        {/* <Stack.Screen
-          name="LanguageButton"
-          component={() => <LanguageButton setCurrentLanguage={setCurrentLanguage} />}
-          options={createScreenOptions(t('screen.languageButtonTitle'), true)}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

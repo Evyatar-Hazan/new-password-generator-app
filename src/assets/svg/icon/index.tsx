@@ -1,14 +1,13 @@
-import React from 'react';
-import {
-  GestureResponderEvent,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import {Path, Svg} from 'react-native-svg';
-import {useTheme} from '../../../themes/ThemeContext';
-import {themes} from '../../../themes/themes';
-import {IconsEnum, iconsMap} from './iconsMap';
-import {useRTL} from '../../../i18n/RTLContext';
+import type { GestureResponderEvent } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { Path, Svg } from 'react-native-svg';
+
+import { useRTL } from '../../../i18n/RTLContext';
+import { useTheme } from '../../../themes/ThemeContext';
+import { themes } from '../../../themes/themes';
+import type { IconsEnum } from './iconsMap';
+import { iconsMap } from './iconsMap';
+import styles from './styles';
 
 interface RenderIconProps {
   name: IconsEnum;
@@ -21,10 +20,10 @@ const RenderIcon: React.FC<RenderIconProps> = ({
   onPress,
   rtl = false,
 }) => {
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   const colors = themes[theme];
-  const {isRTL} = useRTL();
-  const {d, width, height} = iconsMap[name];
+  const { isRTL } = useRTL();
+  const { d, width, height } = iconsMap[name];
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -38,12 +37,5 @@ const RenderIcon: React.FC<RenderIconProps> = ({
     </TouchableOpacity>
   );
 };
-
-const styles = (isRTL: boolean) =>
-  StyleSheet.create({
-    svg: {
-      transform: [{scaleX: isRTL ? 1 : -1}],
-    },
-  });
 
 export default RenderIcon;

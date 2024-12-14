@@ -1,15 +1,15 @@
-import React, {useEffect, useRef} from 'react';
-import {useTranslation} from 'react-i18next';
-import {View, Animated} from 'react-native';
-import {styles} from './styles';
+import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Animated, View } from 'react-native';
+
+import APP_ICON_PASH from '../../assets/images/appIcon/appIcon.jpeg';
+import { styles } from './styles';
 
 const SplashScreen: React.FC = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.5)).current;
   const textAnim = useRef(new Animated.Value(0)).current;
-
-  const APP_ICON_PASH = '../../assets/images/appIcon/appIcon.jpeg';
 
   useEffect(() => {
     Animated.parallel([
@@ -36,13 +36,13 @@ const SplashScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={require(APP_ICON_PASH)}
+        source={APP_ICON_PASH}
         style={[
           styles.image,
-          {opacity: fadeAnim, transform: [{scale: scaleAnim}]},
+          { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
         ]}
       />
-      <Animated.Text style={[styles.text, {opacity: textAnim}]}>
+      <Animated.Text style={[styles.text, { opacity: textAnim }]}>
         {t('general.appName')}
       </Animated.Text>
     </View>

@@ -1,11 +1,12 @@
-import React from 'react';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
-import {useTheme} from '../../themes/ThemeContext';
-import {themes} from '../../themes/themes';
-import {useRTL} from '../../i18n/RTLContext';
+import { Text, TextInput, View } from 'react-native';
+
 import RenderIcon from '../../assets/svg/icon';
-import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+import { IconsEnum } from '../../assets/svg/icon/iconsMap';
+import { useRTL } from '../../i18n/RTLContext';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
+import styles from './styles';
 
 interface FrameInputProps {
   isInput: boolean;
@@ -24,9 +25,9 @@ const FrameInput: React.FC<FrameInputProps> = ({
   onChangeText,
   strengthType,
 }) => {
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   const colors = themes[theme];
-  const {isRTL} = useRTL();
+  const { isRTL } = useRTL();
   const handleCopy = () => {
     Clipboard.setString(value);
   };
@@ -36,29 +37,34 @@ const FrameInput: React.FC<FrameInputProps> = ({
     let color = 'transparent';
 
     switch (strengthType) {
-      case 'veryWeak':
+      case 'veryWeak': {
         width = 20;
         color = colors.veryWeak;
         break;
-      case 'weak':
+      }
+      case 'weak': {
         width = 40;
         color = colors.weak;
         break;
-      case 'medium':
+      }
+      case 'medium': {
         width = 60;
         color = colors.medium;
         break;
-      case 'strong':
+      }
+      case 'strong': {
         width = 80;
         color = colors.strong;
         break;
-      case 'veryStrong':
+      }
+      case 'veryStrong': {
         width = 100;
         color = colors.veryStrong;
         break;
+      }
     }
 
-    return {width: `${width}%`, backgroundColor: color};
+    return { width: `${width}%`, backgroundColor: color };
   };
 
   const progressBarStyle = getProgressStyle();
@@ -90,59 +96,5 @@ const FrameInput: React.FC<FrameInputProps> = ({
     </View>
   );
 };
-
-const styles = (colors: any, isRTL: boolean) =>
-  StyleSheet.create({
-    container: {
-      marginBottom: 30,
-      width: '90%',
-      alignSelf: 'center',
-      color: colors.text,
-    },
-    label: {
-      fontSize: 16,
-      marginBottom: 5,
-      fontWeight: 'bold',
-      textAlign: isRTL ? 'right' : 'left',
-      color: colors.text,
-    },
-    input: {
-      borderColor: colors.mainLightPurple,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 10,
-      backgroundColor: 'transparent',
-      color: colors.text,
-      textAlign: isRTL ? 'right' : 'left',
-    },
-    textWithCopyContainer: {
-      flexDirection: isRTL ? 'row-reverse' : 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderColor: colors.mainLightPurple,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 10,
-      color: colors.text,
-    },
-    fixedText: {
-      fontSize: 16,
-      flex: 1,
-      color: colors.text,
-      textAlign: isRTL ? 'right' : 'left',
-    },
-    progressBarContainer: {
-      height: 6,
-      width: '100%',
-      backgroundColor: colors.background,
-      borderRadius: 5,
-      marginTop: 5,
-    },
-    progressBar: {
-      height: '100%',
-      borderRadius: 5,
-      alignSelf: isRTL ? 'flex-end' : 'flex-start',
-    },
-  });
 
 export default FrameInput;

@@ -1,15 +1,16 @@
-// src/App.tsx
-import React, {useEffect, useState} from 'react';
-import Navigation from './navigation';
 import './i18n/i18n';
-import {useTranslation} from 'react-i18next';
-import {RTLProvider} from './i18n/RTLContext';
+
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import SplashScreen from './component/splashScreen';
+import { RTLProvider } from './i18n/RTLContext';
+import Navigation from './navigation';
 import { ThemeProvider } from './themes/ThemeContext';
 
 const App: React.FC = () => {
-  const {i18n} = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const { i18n } = useTranslation();
+  const [currentLanguage] = useState(i18n.language);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const App: React.FC = () => {
     changeLanguage(currentLanguage);
 
     const loadApp = async () => {
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       setIsLoading(false);
     };
 
@@ -29,7 +30,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <RTLProvider>
-        {!isLoading ? <Navigation setCurrentLanguage={setCurrentLanguage} /> : <SplashScreen />}
+        {!isLoading ? <Navigation /> : <SplashScreen />}
       </RTLProvider>
     </ThemeProvider>
   );

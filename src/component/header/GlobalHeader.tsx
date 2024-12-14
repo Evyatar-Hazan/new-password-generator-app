@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {useRTL} from '../../i18n/RTLContext';
-import SidebarMenu from '../sidebarMenu';
-import {useTheme} from '../../themes/ThemeContext';
-import {themes} from '../../themes/themes';
-import styles from './styles';
+import { useState } from 'react';
+import { Text, View } from 'react-native';
+
 import RenderIcon from '../../assets/svg/icon';
-import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+import { IconsEnum } from '../../assets/svg/icon/iconsMap';
+import { useRTL } from '../../i18n/RTLContext';
+import type { ScreenNavigationProp } from '../../navigation';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
+import SidebarMenu from '../sidebarMenu';
+import styles from './styles';
 
 interface GlobalHeaderProps {
   title: string;
   showBackButton?: boolean;
-  navigation: any;
+  navigation: ScreenNavigationProp;
 }
 
 const GlobalHeader: React.FC<GlobalHeaderProps> = ({
@@ -20,15 +22,15 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   navigation,
 }) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   const colors = themes[theme];
-  const {isRTL} = useRTL();
+  const { isRTL } = useRTL();
 
   const toggleMenu = () => {
     setMenuVisible(!isMenuVisible);
   };
 
-  const handleMenuItemPress = (item: string) => {
+  const handleMenuItemPress = () => {
     setMenuVisible(false);
   };
 

@@ -1,22 +1,24 @@
-import React, {useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {View, StyleSheet, Text} from 'react-native';
-import FrameInput from '../../component/frameInput';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList, ScreenEnum} from '../../navigation';
-import {RouteProp} from '@react-navigation/native';
+import type { RouteProp } from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 import {
-  extractLetters,
   combineNumbersAndLetters,
-  transformToUpperCase,
-  transformToSign,
+  extractLetters,
   extractNumbers,
+  transformToSign,
+  transformToUpperCase,
 } from 'password-generator-npm';
-import Footer from '../../component/footerButton';
-import {useTheme} from '../../themes/ThemeContext';
-import {themes} from '../../themes/themes';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Text, View } from 'react-native';
+
 import RenderIcon from '../../assets/svg/icon';
-import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+import { IconsEnum } from '../../assets/svg/icon/iconsMap';
+import Footer from '../../component/footerButton';
+import FrameInput from '../../component/frameInput';
+import type { RootStackParamList, ScreenEnum } from '../../navigation';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
+import styles from './styles';
 
 type HubScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,17 +30,17 @@ type HubProps = {
   navigation: HubScreenNavigationProp;
   route: HubScreenRouteProp;
 };
-const Hub: React.FC<HubProps> = ({navigation, route}) => {
-  const {t} = useTranslation();
-  const {theme} = useTheme();
+const Hub: React.FC<HubProps> = ({ route }) => {
+  const { t } = useTranslation();
+  const { theme } = useTheme();
   const colors = themes[theme];
-  const {Keyword1, Keyword2} = route.params || {};
+  const { Keyword1, Keyword2 } = route.params;
   const KeywordArr = [Keyword1 || '', Keyword2 || ''];
   const [numCharacters, setNumCharacters] = useState<number>(8);
 
-  const NumButton = (num: number) => {
-    return <Text style={styles(colors).numButton}>{num}</Text>;
-  };
+  const NumButton = (num: number) => (
+    <Text style={styles(colors).numButton}>{num}</Text>
+  );
 
   const inputConfigs = [
     {
@@ -71,9 +73,9 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
   return (
     <>
       <View style={styles(colors).inputContainer}>
-        {inputConfigs.map((config, index) => (
+        {inputConfigs.map((config) => (
           <FrameInput
-            key={index}
+            key={config.label}
             isInput={false}
             label={config.label}
             value={config.value}
@@ -84,38 +86,20 @@ const Hub: React.FC<HubProps> = ({navigation, route}) => {
       <Footer
         defaultFocusedIndex={1}
         buttons={[
-          {icon: () => NumButton(4), onPress: () => setNumCharacters(4)},
+          { icon: () => NumButton(4), onPress: () => setNumCharacters(4) },
           {
             icon: () => NumButton(8),
             onPress: () => setNumCharacters(8),
           },
-          {icon: () => NumButton(12), onPress: () => setNumCharacters(12)},
+          { icon: () => NumButton(12), onPress: () => setNumCharacters(12) },
           {
             icon: () => <RenderIcon name={IconsEnum.PasswordLength} />,
-            onPress: () => console.log('Define a meaningful action'),
+            onPress: () => null, //console.log('Define a meaningful action'),
           },
         ]}
       />
     </>
   );
 };
-
-const styles = (colors: any) =>
-  StyleSheet.create({
-    inputContainer: {
-      flex: 1,
-      justifyContent: 'flex-start',
-      padding: 20,
-      backgroundColor: colors.background,
-      paddingTop: '10%',
-    },
-    numButton: {
-      textAlign: 'center',
-      fontSize: 30,
-      fontWeight: 'bold',
-      fontFamily: 'Roboto',
-      color: colors.text,
-    },
-  });
 
 export default Hub;

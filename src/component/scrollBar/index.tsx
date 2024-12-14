@@ -1,14 +1,12 @@
-import React, { useRef, useState } from 'react';
-import {
-  Animated,
-  StyleSheet,
-  View,
-  LayoutChangeEvent,
-} from 'react-native';
+import { useRef, useState } from 'react';
+import type { LayoutChangeEvent } from 'react-native';
+import { Animated, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+
+import { useRTL } from '../../i18n/RTLContext';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
-import { useRTL } from '../../i18n/RTLContext';
+import styles from './styles';
 
 interface scrollBarProps {
   children: React.ReactNode[];
@@ -20,7 +18,7 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
   const [containerHeight, setContainerHeight] = useState(1);
   const { theme } = useTheme();
   const colors = themes[theme];
-  const {isRTL} = useRTL();
+  const { isRTL } = useRTL();
 
   const handleContentSizeChange = (width: number, height: number) => {
     setContentHeight(height);
@@ -47,10 +45,9 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
         onContentSizeChange={handleContentSizeChange}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
+          { useNativeDriver: false },
         )}
-        scrollEventThrottle={16}
-      >
+        scrollEventThrottle={16}>
         {children}
       </Animated.ScrollView>
       <View style={styles(colors, isRTL).scrollBarContainer}>
@@ -60,8 +57,7 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
             {
               height: scrollBarHeight,
             },
-          ]}
-        >
+          ]}>
           <LinearGradient
             colors={[colors.mainLightPurple, colors.mainPurple]}
             style={styles(colors, isRTL).gradient}
@@ -71,35 +67,5 @@ const scrollBar: React.FC<scrollBarProps> = ({ children }) => {
     </View>
   );
 };
-
-const styles = (colors: any, isRTL: boolean) =>
-  StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: isRTL ? 'row-reverse' : 'row',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 32,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    paddingRight: 16,
-  },
-  scrollBarContainer: {
-    width: 8,
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  scrollBar: {
-    width: '100%',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  gradient: {
-    flex: 1,
-  },
-});
 
 export default scrollBar;

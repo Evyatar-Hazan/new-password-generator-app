@@ -1,35 +1,37 @@
-import React, {useState} from 'react';
-import {useTranslation} from 'react-i18next';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  View,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
-  Keyboard,
-  TouchableWithoutFeedback,
-  StyleSheet,
   ScrollView,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import FrameInput from '../../component/frameInput';
-import {RootStackParamList, ScreenEnum} from '../../navigation';
-import {StackNavigationProp} from '@react-navigation/stack';
-import Card from '../../component/card/Card';
-import Footer from '../../component/footerButton';
-import {useTheme} from '../../themes/ThemeContext';
-import {themes} from '../../themes/themes';
-import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+
 import RenderIcon from '../../assets/svg/icon';
+import { IconsEnum } from '../../assets/svg/icon/iconsMap';
+import Card from '../../component/card';
+import Footer from '../../component/footerButton';
+import FrameInput from '../../component/frameInput';
+import type { RootStackParamList } from '../../navigation';
+import { ScreenEnum } from '../../navigation';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
+import styles from './styles';
 
 type HomeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   ScreenEnum.Home
 >;
 
-const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({
+const Home: React.FC<{ navigation: HomeScreenNavigationProp }> = ({
   navigation,
 }) => {
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   const colors = themes[theme];
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [Keyword1, setKeyword1] = useState('');
   const [Keyword2, setKeyword2] = useState('');
 
@@ -37,7 +39,7 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({
 
   const onPressGenerator = () => {
     if (isActive) {
-      navigation.navigate(ScreenEnum.Hub, {Keyword1, Keyword2});
+      navigation.navigate(ScreenEnum.Hub, { Keyword1, Keyword2 });
     }
   };
 
@@ -52,9 +54,9 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({
             keyboardShouldPersistTaps="handled">
             <Card
               dominantTitle={t('home.subTitle')}
-              dominantTitleStyles={{textAlign: 'center'}}
+              dominantTitleStyles={{ textAlign: 'center' }}
               content={t('home.note')}
-              contentStyles={{textAlign: 'center'}}
+              contentStyles={{ textAlign: 'center' }}
             />
 
             <View style={styles(colors).inputContainer}>
@@ -94,33 +96,5 @@ const Home: React.FC<{navigation: HomeScreenNavigationProp}> = ({
     </View>
   );
 };
-
-const styles = (colors: any) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.background,
-    },
-    contentContainer: {
-      flex: 1,
-    },
-    innerContainer: {
-      flexGrow: 1,
-      justifyContent: 'space-between',
-      paddingTop: 16,
-      paddingLeft: 16,
-      paddingRight: 16,
-    },
-    keyboardVisibleContainer: {
-      paddingBottom: 20,
-    },
-    inputContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      paddingBottom: 16,
-      paddingLeft: 16,
-      paddingRight: 16,
-    },
-  });
 
 export default Home;

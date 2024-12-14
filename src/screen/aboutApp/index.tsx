@@ -1,34 +1,35 @@
-import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {StyleSheet, View} from 'react-native';
-import {RootStackParamList, ScreenEnum} from '../../navigation';
-import {StackNavigationProp} from '@react-navigation/stack';
-import ScrollBar from '../../component/scrollBar';
-import FrameInput from '../../component/frameInput';
+import type { StackNavigationProp } from '@react-navigation/stack';
 import {
-  extractLetters,
   combineNumbersAndLetters,
-  transformToUpperCase,
-  transformToSign,
+  extractLetters,
   extractNumbers,
+  transformToSign,
+  transformToUpperCase,
 } from 'password-generator-npm';
-import Card from '../../component/card/Card';
-import Footer from '../../component/footerButton';
-import {useTheme} from '../../themes/ThemeContext';
-import {themes} from '../../themes/themes';
+import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
+
 import RenderIcon from '../../assets/svg/icon';
-import {IconsEnum} from '../../assets/svg/icon/iconsMap';
+import { IconsEnum } from '../../assets/svg/icon/iconsMap';
+import Card from '../../component/card';
+import Footer from '../../component/footerButton';
+import FrameInput from '../../component/frameInput';
+import ScrollBar from '../../component/scrollBar';
+import type { RootStackParamList, ScreenEnum } from '../../navigation';
+import { useTheme } from '../../themes/ThemeContext';
+import { themes } from '../../themes/themes';
+import styles from './styles';
 
 type AboutAppScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   ScreenEnum.AboutApp
 >;
 
-const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
+const AboutApp: React.FC<{ navigation: AboutAppScreenNavigationProp }> = ({
   navigation,
 }) => {
-  const {t} = useTranslation();
-  const {theme} = useTheme();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
   const colors = themes[theme];
   const KeywordArr = [
     t('aboutApp.exampleUsage.personalWord.details'),
@@ -127,13 +128,5 @@ const AboutApp: React.FC<{navigation: AboutAppScreenNavigationProp}> = ({
     </View>
   );
 };
-
-const styles = (colors: any) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.background,
-    },
-  });
 
 export default AboutApp;
