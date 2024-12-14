@@ -1,5 +1,6 @@
 import Clipboard from '@react-native-clipboard/clipboard';
-import { Text, TextInput, View } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import RenderIcon from '../../assets/svg/icon';
 import { IconsEnum } from '../../assets/svg/icon/iconsMap';
@@ -64,7 +65,7 @@ const FrameInput: React.FC<FrameInputProps> = ({
       }
     }
 
-    return { width: `${width}%`, backgroundColor: color };
+    return { width: `${width}%`, backgroundColor: color } as ViewStyle;
   };
 
   const progressBarStyle = getProgressStyle();
@@ -82,10 +83,12 @@ const FrameInput: React.FC<FrameInputProps> = ({
         />
       ) : (
         <>
-          <View style={styles(colors, isRTL).textWithCopyContainer}>
+          <TouchableOpacity
+            onPress={handleCopy}
+            style={styles(colors, isRTL).textWithCopyContainer}>
             <Text style={styles(colors, isRTL).fixedText}>{value}</Text>
             <RenderIcon name={IconsEnum.Copy} onPress={handleCopy} />
-          </View>
+          </TouchableOpacity>
           <View style={styles(colors, isRTL).progressBarContainer}>
             <View
               style={[styles(colors, isRTL).progressBar, progressBarStyle]}
