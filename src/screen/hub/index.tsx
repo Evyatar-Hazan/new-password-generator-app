@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { RouteProp } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import {
@@ -7,10 +8,11 @@ import {
   transformToSign,
   transformToUpperCase,
 } from 'password-generator-npm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
+import { randomKeyStorageKey } from '../../App';
 import RenderIcon from '../../assets/svg/icon';
 import { IconsEnum } from '../../assets/svg/icon/iconsMap';
 import Footer from '../../component/footerButton';
@@ -35,8 +37,24 @@ const Hub: React.FC<HubProps> = ({ route }) => {
   const { theme } = useTheme();
   const colors = themes[theme];
   const { Keyword1, Keyword2 } = route.params;
-  const KeywordArr = [Keyword1 || '', Keyword2 || ''];
   const [numCharacters, setNumCharacters] = useState<number>(8);
+  const [KeywordArr, setKeywordArr] = useState<string[]>([
+    Keyword1 || '',
+    Keyword2 || '',
+  ]);
+
+  useEffect(() => {
+    const loadRandomKey = async () => {
+      const existingRandomKey = await AsyncStorage.getItem(randomKeyStorageKey);
+      setKeywordArr([
+        Keyword1,
+        Keyword2,
+        existingRandomKey !== null ? existingRandomKey : '',
+      ]);
+    };
+
+    loadRandomKey();
+  }, [Keyword1, Keyword2]);
 
   const NumButton = (num: number) => (
     <Text style={styles(colors).numButton}>{num}</Text>
