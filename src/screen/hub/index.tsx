@@ -110,10 +110,10 @@ const Hub: React.FC<HubProps> = ({ route }) => {
             onPress: () => setNumCharacters(8),
           },
           { icon: () => NumButton(12), onPress: () => setNumCharacters(12) },
-          {
-            icon: () => <RenderIcon name={IconsEnum.PasswordLength} />,
-            onPress: () => null, //console.log('Define a meaningful action'),
-          },
+          // {
+          //   icon: () => <RenderIcon name={IconsEnum.PasswordLength} />,
+          //   onPress: () => null, //console.log('Define a meaningful action'),
+          // },
         ]}
       />
     </>
