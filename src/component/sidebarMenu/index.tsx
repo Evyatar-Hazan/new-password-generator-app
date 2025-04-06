@@ -172,7 +172,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             textColor={colors.text}
           />
 
-          <MenuItem
+          {/* <MenuItem
             icon={
               <RenderIcon
                 name={IconsEnum.SecurityKey}
@@ -183,7 +183,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             onPress={() => onMenuItemPress('Security Key')}
             isRTL={isRTL}
             textColor={colors.text}
-          />
+          /> */}
 
           <MenuItem
             icon={
