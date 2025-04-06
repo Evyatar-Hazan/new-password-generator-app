@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import RenderIcon from '../../assets/svg/icon';
 import { IconsEnum } from '../../assets/svg/icon/iconsMap';
@@ -36,9 +36,11 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
 
   return (
     <View style={styles(colors, isRTL).headerContainer}>
-      <View style={styles(colors, isRTL).sideContainer}>
+      <TouchableOpacity
+        style={styles(colors, isRTL).sideContainer}
+        onPress={toggleMenu}>
         <RenderIcon name={IconsEnum.Menu} onPress={toggleMenu} />
-      </View>
+      </TouchableOpacity>
       <View style={styles(colors, isRTL).headerTitleContainer}>
         <Text style={styles(colors, isRTL).headerTitle}>{title}</Text>
       </View>
