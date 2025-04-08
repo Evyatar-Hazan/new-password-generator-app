@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { ImageSourcePropType } from 'react-native';
 import { Animated, View } from 'react-native';
 
 import APP_ICON_PASH from '../../assets/images/appIcon/appIcon.jpeg';
+import { appVersion } from '../../config/version';
 import { styles } from './styles';
 
 const SplashScreen: React.FC = () => {
@@ -36,7 +38,7 @@ const SplashScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={APP_ICON_PASH}
+        source={APP_ICON_PASH as ImageSourcePropType}
         style={[
           styles.image,
           { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
@@ -44,6 +46,9 @@ const SplashScreen: React.FC = () => {
       />
       <Animated.Text style={[styles.text, { opacity: textAnim }]}>
         {t('general.appName')}
+      </Animated.Text>
+      <Animated.Text style={[styles.versionText, { opacity: textAnim }]}>
+        {t('general.version', { version: appVersion })}
       </Animated.Text>
     </View>
   );
