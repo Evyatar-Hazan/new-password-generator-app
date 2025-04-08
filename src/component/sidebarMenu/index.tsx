@@ -15,6 +15,7 @@ import {
 import titleIcon from '../../assets/images/appIcon/appIcon.jpeg';
 import RenderIcon from '../../assets/svg/icon';
 import { IconsEnum } from '../../assets/svg/icon/iconsMap';
+import { appVersion } from '../../config/version';
 import { useRTL } from '../../i18n/RTLContext';
 import type { RootStackParamList } from '../../navigation';
 import { ScreenEnum } from '../../navigation';
@@ -278,6 +279,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
             ]}
           />
         </View>
+        <Card
+          content={t('general.version', { version: appVersion })}
+          contentStyles={styles(colors, isRTL).versionText}
+        />
       </Animated.View>
     </Modal>
   );

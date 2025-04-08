@@ -102,6 +102,10 @@ const styles = (colors: ThemeType, isRTL: boolean) =>
       marginRight: isRTL ? 0 : 8,
       marginLeft: isRTL ? 8 : 0,
     },
+    versionText: {
+      fontSize: 10,
+      textAlign: isRTL ? 'right' : 'left',
+    },
   });
 
 export default styles;

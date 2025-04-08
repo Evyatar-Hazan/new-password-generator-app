@@ -3,7 +3,8 @@
     "appName": "Password generator",
     "privacyPolicy": "Privacy Policy",
     "aboutApp": "About the App",
-    "aboutUs": "About Us"
+    "aboutUs": "About Us",
+    "version": "Version {{version}}"
   },
   "home": {
     "subTitle": "Enter two keywords to create a strong password. \nFor those two words you will get the same password.",
@@ -29,23 +30,22 @@
   },
   "privacyPolicy": {
     "lastUpdate": {
-    "description": "last update: ",
-    "details": "2023-09-21"
+      "description": "last update: ",
+      "details": "2023-09-21"
     },
     "owner": "Evyatar Hazan operates the Password-Generator mobile application (the 'Application').",
     "appName": "Password-Generator",
     "dataCollection": {
       "description": "No data collection:",
-      "details":
-        "The Password-Generator app does not collect, store, or share any personal information or data from its users. We do not collect information about user input, generated passwords, or any device-specific information."
-      },
+      "details": "The Password-Generator app does not collect, store, or share any personal information or data from its users. We do not collect information about user input, generated passwords, or any device-specific information."
+    },
     "accountCreation": {
       "description": "No account creation:",
       "details": "The Password-Generator app does not require users to create accounts or provide any form of registration."
     },
     "internetConnection": {
       "description": "No internet connection:",
-      "details" : "The Password-Generator app does not require an internet connection to function. It works completely offline and does not communicate with external servers or services."
+      "details": "The Password-Generator app does not require an internet connection to function. It works completely offline and does not communicate with external servers or services."
     },
     "advertising": {
       "description": "Advertising:",
@@ -96,10 +96,10 @@
         "description": "Platform Word:",
         "details": "'Bank'"
       }
-    }, 
+    },
     "generatedPasswords": {
       "title": "Generated Passwords:"
-    }, 
+    },
     "securityTips": {
       "title": "Security Tips:",
       "secret": {
@@ -114,7 +114,7 @@
         "description": "● Select the Password Option that Fits Your Security Needs:",
         "details": "Depending on the sensitivity of the account, choose the generated password option that best aligns with your security requirements."
       }
-    }, 
+    },
     "importantNote": {
       "title": "Important Note:",
       "Note": {
@@ -161,4 +161,4 @@
       "link": "https://www.linkedin.com/in/mendy-bloy-5671b8276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
     }
   }
-} 
+}
