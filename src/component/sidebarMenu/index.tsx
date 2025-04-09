@@ -1,6 +1,7 @@
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { ImageSourcePropType } from 'react-native';
 import {
   Animated,
   Dimensions,
@@ -22,6 +23,7 @@ import { ScreenEnum } from '../../navigation';
 import { useTheme } from '../../themes/ThemeContext';
 import { themes } from '../../themes/themes';
 import Card from '../card';
+import CustomLanguageSwitch from './languageSwitch';
 import MenuItem from './menuItem/menuItem';
 import styles from './styles';
 
@@ -115,7 +117,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
         ]}>
         {/* Title and Icon */}
         <View style={styles(colors, isRTL).titleContainer}>
-          <Image source={titleIcon} style={styles(colors, isRTL).titleIcon} />
+          <Image
+            source={titleIcon as ImageSourcePropType}
+            style={styles(colors, isRTL).titleIcon}
+          />
           <Text style={styles(colors, isRTL).title}>
             {t('general.appName')}
           </Text>
@@ -245,16 +250,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
                     textColor={colors.text}
                     onPress={toggleLen}
                     switchIcon={
-                      <Switch
-                        value={isRTL}
-                        onValueChange={toggleLen}
-                        thumbColor={
-                          isRTL ? colors.mainPurple : colors.background
-                        }
-                        trackColor={{
-                          false: colors.gray,
-                          true: colors.mainLightPurple,
-                        }}
+                      <CustomLanguageSwitch
+                        isRTL={isRTL}
+                        onToggleLanguage={toggleLen}
                       />
                     }
                   />
