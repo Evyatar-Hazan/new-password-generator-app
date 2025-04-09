@@ -1,10 +1,10 @@
 {
   "name": "PasswordGeneratorApp",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "android": {
-    "versionCode": 6,
-    "versionName": "1.0.6"
+    "versionCode": 7,
+    "versionName": "1.0.7"
   },
   "scripts": {
     "android": "react-native run-android",
