@@ -13,8 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { randomKeyStorageKey } from '../../App';
-import RenderIcon from '../../assets/svg/icon';
-import { IconsEnum } from '../../assets/svg/icon/iconsMap';
 import Footer from '../../component/footerButton';
 import FrameInput from '../../component/frameInput';
 import type { RootStackParamList, ScreenEnum } from '../../navigation';

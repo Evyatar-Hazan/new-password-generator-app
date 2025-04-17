@@ -35,31 +35,51 @@ const Card: React.FC<CardProps> = ({
   const renderContent = () => {
     if (typeof content === 'string') {
       if (!links || links.length === 0) {
+        const parts = content.split(/(\*\*.*?\*\*)/g);
+
         return (
           <Text style={[styles(colors, isRTL).content, contentStyles]}>
-            {content}
+            {parts.map((part) => {
+              if (part.startsWith('**') && part.endsWith('**')) {
+                return (
+                  <Text key={`bold-${part}`} style={{ fontWeight: 'bold' }}>
+                    {part.slice(2, -2)}
+                  </Text>
+                );
+              }
+              return part;
+            })}
           </Text>
         );
       }
 
-      const splitContent = content.split(/(\[link\d+\])/g);
+      const splitContent = content.split(/(\[link\d+\]|\*\*.*?\*\*)/g);
 
       return (
         <Text style={styles(colors, isRTL).content}>
           {splitContent.map((part: string) => {
-            const match = part.match(/\[link(\d+)\]/);
-            if (match) {
-              const linkIndex = parseInt(match[1], 10) - 1;
+            const linkMatch = part.match(/\[link(\d+)\]/);
+            const boldMatch = part.match(/^\*\*(.*?)\*\*$/);
+
+            if (linkMatch) {
+              const linkIndex = parseInt(linkMatch[1], 10) - 1;
               const link = links[linkIndex];
               return (
                 <Text
-                  key={link.text}
+                  key={`link`}
                   style={styles(colors, isRTL).link}
                   onPress={() => Linking.openURL(link.url)}>
                   {link.text}
                 </Text>
               );
+            } else if (boldMatch) {
+              return (
+                <Text key={`bold`} style={{ fontWeight: 'bold' }}>
+                  {boldMatch[1]}
+                </Text>
+              );
             }
+
             return part;
           })}
         </Text>

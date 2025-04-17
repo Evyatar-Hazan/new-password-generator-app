@@ -8,9 +8,8 @@ import AboutAppScreen from '../screen/aboutApp';
 import AboutUsScreen from '../screen/aboutUs';
 import HomeScreen from '../screen/home';
 import HubScreen from '../screen/hub';
+import OnboardingScreen from '../screen/onboardingScreen';
 import PrivacyPolicyScreen from '../screen/privacyPolicy';
-import { useTheme } from '../themes/ThemeContext';
-import { themes } from '../themes/themes';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -18,6 +17,7 @@ export type RootStackParamList = {
   PrivacyPolicy: undefined;
   AboutApp: undefined;
   AboutUs: undefined;
+  Intro: undefined;
 };
 
 export enum ScreenEnum {
@@ -26,6 +26,7 @@ export enum ScreenEnum {
   PrivacyPolicy = 'PrivacyPolicy',
   AboutApp = 'AboutApp',
   AboutUs = 'AboutUs',
+  Intro = 'Intro',
 }
 
 export type ScreenEnumType = keyof RootStackParamList;
@@ -55,18 +56,15 @@ const createScreenOptions =
 
 const Navigation = () => {
   const { t } = useTranslation();
-  const { theme } = useTheme();
-  const colors = themes[theme];
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={ScreenEnum.Home}
-        screenOptions={{
-          cardStyle: {
-            backgroundColor: colors.background,
-          },
-        }}>
+      <Stack.Navigator initialRouteName="Intro">
+        <Stack.Screen
+          name="Intro"
+          component={OnboardingScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name={ScreenEnum.Home}
           component={HomeScreen}

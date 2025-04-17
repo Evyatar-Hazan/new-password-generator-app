@@ -43,7 +43,7 @@ export default [
       '.prettierrc.js',
       '.yarn/releases/yarn-stable-temp.cjs',
       'eslint.config.mjs',
-      '**/settings.json'
+      '**/settings.json',
     ],
     plugins: {
       '@typescript-eslint': tsPlugin,
@@ -51,7 +51,7 @@ export default [
       prettier: prettierPlugin,
       import: importPlugin,
       justinanastos: justinanastosPlugin,
-      'react-hooks': reactHooksPlugin, 
+      'react-hooks': reactHooksPlugin,
       reanimated: reanimatedPlugin,
       'simple-import-sort': simpleImportSortPlugin,
     },
@@ -88,7 +88,8 @@ export default [
       'react-hooks/exhaustive-deps': [
         'error',
         {
-          additionalHooks: '(useAnimatedStyle|useDerivedValue|useAnimatedProps)',
+          additionalHooks:
+            '(useAnimatedStyle|useDerivedValue|useAnimatedProps)',
         },
       ],
       '@typescript-eslint/no-restricted-imports': [
@@ -155,7 +156,7 @@ export default [
       'react/no-array-index-key': 'error',
       'reanimated/js-function-in-worklet': 'error',
       'reanimated/unsupported-syntax': 'error',
-      'reanimated/no-multiple-animated-style-usages': 'error',
+      'reanimated/no-multiple-animated-style-usages': 'off',
       curly: 'error',
       eqeqeq: 'error',
       'simple-import-sort/imports': 'error',

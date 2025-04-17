@@ -160,5 +160,42 @@
       "linkOwner": "https://www.linkedin.com/in/evyatar-hazan-662235210?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       "link": "https://www.linkedin.com/in/mendy-bloy-5671b8276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
     }
+  },
+  "onboarding": {
+    "general": {
+      "skip": "Skip",
+      "next": "Next",
+      "back": "Back",
+      "done": "Done",
+      "dontShowAgain": "Don't show again"
+    },
+    "page0": {
+      "title": "Welcome to your secure password generator!",
+      "subtitle": "Create strong passwords easily and securely, with no need to remember them."
+    },
+    "page1": {
+      "title": "Your password – in your head!",
+      "subtitle": "Forget hundreds of complicated passwords. All you need to remember is just two words."
+    },
+    "page2": {
+      "title": "How does it work?",
+      "subtitle": "1. **Secret personal word:** Think of a word or phrase only you know. This will be the unique base for your passwords.\n\n2. **Platform word:** Enter a word related to the service or website for which you're creating a password (e.g., 'Facebook', 'Bank', 'Email')."
+    },
+    "page3": {
+      "title": "All security levels – in one shot!",
+      "subtitle": "**The app instantly generates secure passwords for you in various levels:**\n• Numbers only: 1234\n• Letters only: abcd\n• Numbers and letters: a1b2\n• Including uppercase: Aa12\n• Including special characters: #Aa1\n\nChoose the password that best fits your needs from the options shown."
+    },
+    "page4": {
+      "title": "Why is it so secure?",
+      "subtitle": "• **One-way function (Hash):** Our algorithm ensures your words can't be recovered from the generated password.\n• **Personal security word:** Adds an extra protection layer – only you can create your passwords.\n• **Privacy guaranteed:** We don’t store any information about your words or generated passwords!"
+    },
+    "page5": {
+      "title": "Important to know!",
+      "subtitle": "**Critical warning:** Your personal security word is essential for recovering passwords.\nIf you delete the app, reset data, or switch devices – **you will not be able to recover your word or passwords.**\nMake sure you remember your personal word well!"
+    },
+    "page6": {
+      "title": "Ready to start?",
+      "subtitle": "Enter your personal word and start creating secure passwords with ease!"
+    }
   }
 }
