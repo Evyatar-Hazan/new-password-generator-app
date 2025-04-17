@@ -18,8 +18,8 @@ const styles = (colors: ThemeType, isRTL: boolean, color?: string) =>
       paddingTop: height * 0.15,
     },
     image: {
-      width: 200,
-      height: width * 0.6,
+      width: width * 0.3,
+      height: width * 0.4,
       resizeMode: 'contain',
       marginBottom: 20,
     },
